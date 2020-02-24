@@ -1,0 +1,50 @@
+ :root{
+  --font-dark1 : #262626;
+  --font-dark2 : #333333;
+  --font-dark3 : #404040;
+  --font-dark-common : #4d4d4d;
+  --font-dark-remark : #909399;
+  --boder1 : #666666;
+  --boder2 : #808080;
+  --boder3 : #999999;
+  --box-showdow1 : 2px 2px 5px #a6a6a6,0 0 7px #d9d9d9;
+  --box-showdow2 : 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  --green1 : #5ad8a6;
+  --green2 : #1e9493; 
+  --hover-speed : .4s ease-in-out;
+  --transition-speed : 1s ease-in-out;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: Ubuntu,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  line-height: 1.4;
+  color: var(--font-dark-common);
+}
+h1{
+  font-size: 2rem;
+}
+h2{
+  font-size: 1.6rem;
+}
+h3{
+ font-size: 1.3rem; 
+ font-weight: 500;
+}
+input{
+  outline: none;
+  border-radius: 5px;
+  font-size: 1em;
+  vertical-align: middle;
+  border: 1px solid var(--boder3);
+}
+input::-webkit-input-placeholder{
+  color: var(--font-dark-remark);
+  font-size: 0.9em;
+}
+input:focus{
+  border-color: var(--green1);
+  box-shadow: 0 0 2px var(--green1);
+}
