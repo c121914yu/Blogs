@@ -9,7 +9,7 @@
     <div class="info-wrapper">
       <div class="persional">
         <img src="../../static/avator.jpg">
-        <h3>yujinlong</h3>
+        <h3>{{persionalInfo.name}}</h3>
         <div class="count">
           <div class="item">
             <span>10</span>
@@ -17,7 +17,7 @@
           </div>
           <div class="line"></div>
           <div class="item">
-            <span>20</span>
+            <span>{{tags.length}}</span>
             <p>标签</p>
           </div>
         </div>
@@ -28,33 +28,36 @@
           <p>分类</p>
         </header>
         <div class="categorys">
-          <div 
+          <router-link 
             class="item"
             v-for="(item,index) in categorys"
             :key="index"
+            :to="'/categeory/'+item.param"
           >
             <i class="iconfont" :class="item.icon"></i>
             <span>{{item.text}}</span>
             <div class="amount">{{item.amount}}</div>
-          </div>
+          </router-link>
         </div>
         <header>
           <i class="iconfont icon-tag"></i>
           <p>标签</p>
         </header>
         <div class="tags">
-          <div 
+          <router-link 
             class="tag"
-            :style="'background-color:'+bgcolors[index] "
-            v-for="(item,index) in tags"
+            :style="'background-color:'+bgcolors[index]"
+            v-for="(i,index) in randomTags"
             :key="index"
+            :to="'/tags/'+tags[i]"
           >
-            {{item}}
-          </div>
+            {{tags[i]}}
+          </router-link>
         </div>
       </div>
     </div>
     <div class="blogs">
+      <blogCov class="blog"></blogCov>
       <blogCov class="blog"></blogCov>
       <blogCov class="blog"></blogCov>
       <blogCov class="blog"></blogCov>
@@ -64,11 +67,11 @@
   <footer>
     <div class="item git">
       <i class="iconfont icon-git"></i>
-      <span>c121914.git.com</span>
+      <span>{{persionalInfo.github}}</span>
     </div>
     <div class="item email">
       <i class="iconfont icon-email"></i>
-      <span>545436317@qq.com</span>
+      <span>{{persionalInfo.email}}</span>
     </div>
   </footer>
 </div>
@@ -79,13 +82,29 @@ import blogCov from '../components/blogCov.vue'
 export default{
   data(){
     return{
-      categorys : [
-        {text : "日记",amount : 5,icon:'icon-riji'},
-        {text : "游记",amount : 5,icon:'icon-travel'},
-        {text : "技术",amount : 5,icon:'icon-jishu'}
-      ],
-      tags : ["javascript","html",'css','张家界','node'],
-      bgcolors : ['#5b8ff9','#6dc8ec','#5ad8a6','#1e9493','#ff9845','#e86452','#ff99c3']
+      persionalInfo : {
+        name : global.blogsInfo.name,
+        email : global.blogsInfo.email,
+        github : global.blogsInfo.github
+      },
+      categorys : global.blogsInfo.categeroy,
+      tags : global.blogsInfo.tags,
+      bgcolors : ['#5b8ff9','#6dc8ec','#5ad8a6','#1e9493','#ff9845','#e86452','#ff99c3',' #f6bd16','#945fb9']
+    }
+  },
+  computed:{
+    randomTags(){
+      let indexs = new Array()
+      let length = this.tags.length<9 ? this.tags.length : 9
+      for(let i=0;i<length;i++){
+        const index = Math.round(Math.random()*(this.tags.length-1))
+        if(indexs.indexOf(index) != -1)
+          i--
+        else
+          indexs[i] = index
+      }
+      console.log(indexs)
+      return indexs
     }
   },
   mounted() {
@@ -93,6 +112,8 @@ export default{
       document.querySelector('.home .head img').style.marginTop = 0
       document.querySelector('.home .head img').style.opacity = 1
       document.querySelector('.home .head h1').style.opacity = 1
+      document.querySelector('.home .main').style.opacity = 1
+      document.querySelector('.home .main').style.paddingTop = 0
     })
   },
   components:{
@@ -111,6 +132,7 @@ export default{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 .home .head img{
   width: 80px;
@@ -132,7 +154,9 @@ export default{
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  position: relative;
+  opacity: 0;
+  padding-top: 50vh;
+  transition: var(--transition-speed);
 }
 .home .main .info-wrapper{
   margin-right: 20px;
@@ -208,6 +232,7 @@ export default{
   display: flex;
   align-items: center;
   transition: width .5s; 
+  text-decoration: none;
 }
 .home .main .info-wrapper .blogsInfo .categorys .item:first-child{
   margin-top: 0;
@@ -246,6 +271,7 @@ export default{
   margin-bottom: 10px;
   cursor: pointer;
   transition: .5s;
+  text-decoration: none;
 }
 .home .main .info-wrapper .blogsInfo .tags .tag:hover{
   transform: scale(1.1);
@@ -276,18 +302,27 @@ export default{
   display: flex;
   align-items: center;
 }
-.home footer .item.git i{
-  font-size: 2em;
-}
-.home footer .item.email i{
-  font-size: 1.5em;
-  margin-top: -5px;
+.home footer i{
+  color: var(--font-dark-remark);
 }
 .home footer span{
   margin-left: 5px;
   font-size: 1em;
   color: var(--green2);
   top: -5px;
+}
+.home footer .item.git i{
+  font-size: 2em;
+}
+.home footer .item.git:hover i,.home footer .item.git:hover span{
+  color: purple;
+}
+.home footer .item.email i{
+  font-size: 1.5em;
+  margin-top: -5px;
+}
+.home footer .item.email:hover i,.home footer .item.email:hover span{
+  color: var(--origin);
 }
 
 @media (max-width:1000px) {

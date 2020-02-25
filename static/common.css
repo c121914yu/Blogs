@@ -13,7 +13,7 @@
   --green2 : #3eaf7c; 
   --origin : #ff9845;
   --hover-speed : .4s ease-out;
-  --transition-speed : 1s ease-out;
+  --transition-speed : .8s ease-out;
 }
 *{
   margin: 0;

@@ -1,9 +1,9 @@
 <template>
   <div class="nav">
-    <div class="logo">
+    <router-link class="logo" :to="{name:'home'}">
       <img src="../../static/logo.png">
-      <h3>yujinlong&emsp;Blogs</h3>
-    </div>
+      <h3>{{myName}}&ensp;Blogs</h3>
+    </router-link>
     <div class="search">
       <i class="iconfont icon-search"></i>
       <input type="text" placeholder="搜索文章" autocomplete="off">
@@ -38,9 +38,9 @@
         </div>
       </div>
       <router-link
-        :to="{name:'home'}" 
         class="item active" 
         :class="current===2 ? 'current':''"
+        :to="'/tags/'+'all'"
       >
         <i class="iconfont icon-tag"></i>
         <span>Tag</span>
@@ -63,12 +63,8 @@ export default{
     return{
       current : 0,
       categeory : false,
-      categeorys : [
-        {text : "全部",param : "all"},
-        {text : "技术",param : "technology"},
-        {text : "日记",param : "diary"},
-        {text : "游记",param : "travel"},
-      ]
+      myName : global.blogsInfo.name,
+      categeorys : [{text : "全部",param : "all"}].concat(global.blogsInfo.categeroy)
     }
   },
   watch:{
@@ -81,8 +77,8 @@ export default{
       switch(this.$route.name){
         case 'home' : this.current=0;break;
         case 'categeory' : this.current=1;break;
+        case 'tags' : this.current=2;break;
       }
-      console.log(this.$route.name)
     },
     show_categeory(back=false){
       if(back)
@@ -107,7 +103,8 @@ export default{
 <style scoped>
 .nav{
   z-index: 9999;
-  position: sticky;
+  position: fixed;
+  top: 0;
   height: 60px;
   width: 100vw;
   background-color: #ffffff;
@@ -128,6 +125,7 @@ export default{
   transition: var(--hover-speed);
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 .nav .logo h3{
   margin-top: -5px;
@@ -170,6 +168,7 @@ export default{
   font-weight: 500;
   position: relative;
   text-decoration: none;
+  padding-bottom: 5px;
 }
 .nav .right .item i{
   color: inherit;
