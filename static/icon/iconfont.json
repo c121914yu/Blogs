@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5640234",
+      "name": "旅游",
+      "font_class": "travel",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "7537014",
+      "name": "技术",
+      "font_class": "jishu",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "7852570",
+      "name": "github",
+      "font_class": "git",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "8335311",
+      "name": "mail, envelope, letter, email, newsletter",
+      "font_class": "email",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
       "icon_id": "4984044",
       "name": "down",
       "font_class": "down",
@@ -15,7 +43,7 @@
     {
       "icon_id": "4718390",
       "name": "标签",
-      "font_class": "tag-o",
+      "font_class": "tag",
       "unicode": "e602",
       "unicode_decimal": 58882
     },
@@ -27,13 +55,6 @@
       "unicode_decimal": 58880
     },
     {
-      "icon_id": "8106217",
-      "name": "delete",
-      "font_class": "delete",
-      "unicode": "e699",
-      "unicode_decimal": 59033
-    },
-    {
       "icon_id": "8106227",
       "name": "home",
       "font_class": "home",
@@ -41,39 +62,11 @@
       "unicode_decimal": 59035
     },
     {
-      "icon_id": "8106245",
-      "name": "close",
-      "font_class": "close",
-      "unicode": "e69e",
-      "unicode_decimal": 59038
-    },
-    {
-      "icon_id": "8106251",
-      "name": "increase",
-      "font_class": "increase",
-      "unicode": "e69f",
-      "unicode_decimal": 59039
-    },
-    {
-      "icon_id": "8106272",
-      "name": "next",
-      "font_class": "next",
-      "unicode": "e6a2",
-      "unicode_decimal": 59042
-    },
-    {
       "icon_id": "8181288",
       "name": "时间 历史记录 计时 钟表 线性",
       "font_class": "shijian",
       "unicode": "e601",
       "unicode_decimal": 58881
-    },
-    {
-      "icon_id": "10678401",
-      "name": "back",
-      "font_class": "back",
-      "unicode": "e6db",
-      "unicode_decimal": 59099
     },
     {
       "icon_id": "10678434",

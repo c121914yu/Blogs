@@ -6,6 +6,7 @@
 </template>
 
 <script>
+global.blogsInfo = []
 import Nav from './components/nav.vue'
 export default {
   components:{

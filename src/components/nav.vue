@@ -9,33 +9,50 @@
       <input type="text" placeholder="搜索文章" autocomplete="off">
     </div>
     <div class="right">
-      <div class="item" :class="current === 0 ? 'current':''">
+      <router-link 
+        :to="{name:'home'}" 
+        class="item active" 
+        :class="current===0 ? 'current':''"
+      >
         <i class="iconfont icon-home"></i>
         <span>Home</span>
-      </div>
-      <div class="item" :class="current === 1 ? 'current':''" @click.prevent="show_categeory">
+      </router-link>
+      <div 
+        class="item" 
+        :class="current === 1 ? 'current':''" 
+        @mouseenter="show_categeory()" 
+        @mouseleave="show_categeory()"
+      >
         <i class="iconfont icon-menu"></i>
         <span>Categeory</span>
         <i class="iconfont icon-down down"></i>
-        <div class="categeory" v-show="categeory">
+        <div class="categeory" @mouseenter="show_categeory(true)">
           <router-link 
             class="link" 
             v-for="(item,index) in categeorys"
             :key="index"
-            :to="{name:item.name}"
+            :to="'/categeory/'+item.param"
           >
-            {{item.text}}
+            <p @click="routeChange">{{item.text}}</p>
           </router-link>
         </div>
       </div>
-      <div class="item" :class="current === 2 ? 'current':''">
-        <i class="iconfont icon-tag-o"></i>
+      <router-link
+        :to="{name:'home'}" 
+        class="item active" 
+        :class="current===2 ? 'current':''"
+      >
+        <i class="iconfont icon-tag"></i>
         <span>Tag</span>
-      </div>
-      <div class="item" :class="current === 3 ? 'current':''">
+      </router-link>
+      <router-link
+        :to="{name:'home'}" 
+        class="item active" 
+        :class="current===3 ? 'current':''"
+      >
         <i class="iconfont icon-shijian"></i>
         <span>TimeLine</span>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -47,35 +64,56 @@ export default{
       current : 0,
       categeory : false,
       categeorys : [
-        {text : "全部",name : "home"},
-        {text : "技术",name : "home"},
-        {text : "日记",name : "home"},
-        {text : "游记",name : "home"},
+        {text : "全部",param : "all"},
+        {text : "技术",param : "technology"},
+        {text : "日记",param : "diary"},
+        {text : "游记",param : "travel"},
       ]
     }
   },
+  watch:{
+    '$route' : 'routeChange',
+  },
   methods:{
-    show_categeory(){
+    routeChange(){
+      document.querySelector('.item .down').style.transform = "rotate(0)"
+      document.querySelector('.item .categeory').style.height = "0"
+      switch(this.$route.name){
+        case 'home' : this.current=0;break;
+        case 'categeory' : this.current=1;break;
+      }
+      console.log(this.$route.name)
+    },
+    show_categeory(back=false){
+      if(back)
+        return
       this.categeory = !this.categeory
-      if(this.categeory)
+      if(this.categeory){
         document.querySelector('.item .down').style.transform = "rotate(180deg)"
-      else
+        document.querySelector('.item .categeory').style.height = this.categeorys.length*32 + "px"
+      }
+      else{
         document.querySelector('.item .down').style.transform = "rotate(0)"
+        document.querySelector('.item .categeory').style.height = "0"
+      }
     }
+  },
+  mounted() {
+    this.routeChange()
   }
 }
 </script>
 
 <style scoped>
 .nav{
+  z-index: 9999;
   position: sticky;
   height: 60px;
   width: 100vw;
   background-color: #ffffff;
-  box-shadow: var(--box-showdow2);
+  box-shadow: var(--box-shadow2);
   display: flex;
-  align-items: center;
-  padding: 0 1em;
+  padding: 1em;
   user-select: none;
 }
 .nav i{
@@ -109,6 +147,7 @@ export default{
   align-items: center;
 }
 .nav .search i{
+  z-index: 999;
   position: absolute;
 }
 .nav .search input{
@@ -130,6 +169,7 @@ export default{
   border-bottom: 3px solid transparent;
   font-weight: 500;
   position: relative;
+  text-decoration: none;
 }
 .nav .right .item i{
   color: inherit;
@@ -148,6 +188,9 @@ export default{
   color: var(--green2);
   border-color: var(--green1);
 }
+.nav .right .item:nth-child(2).current{
+  border-color: transparent;
+}
 .nav .right .item:last-child{
   margin-right: 0;
 }
@@ -157,24 +200,29 @@ export default{
 /* 分类 */
 .nav .right .item .categeory{
   position: absolute;
-  top: 40px;
+  top: 35px;
   width: 100%;
+  height: 0;
   background-color: #FFFFFF;
-  box-shadow: var(--box-showdow2);
+  box-shadow: var(--box-shadow2);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   text-align: center;
   overflow: hidden;
+  transition: var(--hover-speed);
 }
 .nav .right .item .categeory .link{
+  color: var(--font-dark-common);
   text-decoration: none;
-  line-height: 2;
-  letter-spacing: 2px;
 }
 .nav .right .item .categeory .link:hover{
   color: #4c5a55;
   background-color: rgba(90,216,166,0.5);
+}
+.nav .right .item .categeory .link p{
+  line-height: 32px;
+  letter-spacing: 2px;
 }
 
 @media (max-width:900px) {
