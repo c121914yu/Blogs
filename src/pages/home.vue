@@ -12,7 +12,7 @@
         <h3>{{persionalInfo.name}}</h3>
         <div class="count">
           <div class="item">
-            <span>10</span>
+            <span>{{persionalInfo.article}}</span>
             <p>文章</p>
           </div>
           <div class="line"></div>
@@ -57,10 +57,13 @@
       </div>
     </div>
     <div class="blogs">
-      <blogCov class="blog"></blogCov>
-      <blogCov class="blog"></blogCov>
-      <blogCov class="blog"></blogCov>
-      <blogCov class="blog"></blogCov>
+      <blogCov 
+        class="blog"
+        v-for="(item,index) in blogsList"
+        :key="index"
+        :blog="item"
+      >
+      </blogCov>
     </div>
   </div>
   
@@ -85,10 +88,12 @@ export default{
       persionalInfo : {
         name : global.blogsInfo.name,
         email : global.blogsInfo.email,
-        github : global.blogsInfo.github
+        github : global.blogsInfo.github,
+        article : global.blogsInfo.article
       },
       categorys : global.blogsInfo.categeroy,
       tags : global.blogsInfo.tags,
+      blogsList : [],
       bgcolors : ['#5b8ff9','#6dc8ec','#5ad8a6','#1e9493','#ff9845','#e86452','#ff99c3',' #f6bd16','#945fb9']
     }
   },
@@ -103,7 +108,6 @@ export default{
         else
           indexs[i] = index
       }
-      console.log(indexs)
       return indexs
     }
   },
@@ -115,6 +119,10 @@ export default{
       document.querySelector('.home .main').style.opacity = 1
       document.querySelector('.home .main').style.paddingTop = 0
     })
+    if(global.blogsInfo.blogsList.length <= 5)
+      this.blogsList = global.blogsInfo.blogsList
+    else
+      this.blogsList = global.blogsInfo.blogsList.splice(0,5)
   },
   components:{
     blogCov

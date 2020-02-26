@@ -46,7 +46,7 @@
         <span>Tag</span>
       </router-link>
       <router-link
-        :to="{name:'home'}" 
+        :to="{name:'timeLine'}" 
         class="item active" 
         :class="current===3 ? 'current':''"
       >
@@ -61,7 +61,7 @@
 export default{
   data(){
     return{
-      current : 0,
+      current : -1,
       categeory : false,
       myName : global.blogsInfo.name,
       categeorys : [{text : "全部",param : "all"}].concat(global.blogsInfo.categeroy)
@@ -74,10 +74,12 @@ export default{
     routeChange(){
       document.querySelector('.item .down').style.transform = "rotate(0)"
       document.querySelector('.item .categeory').style.height = "0"
+      this.current = -1
       switch(this.$route.name){
         case 'home' : this.current=0;break;
         case 'categeory' : this.current=1;break;
         case 'tags' : this.current=2;break;
+        case 'timeLine' : this.current=3;break;
       }
     },
     show_categeory(back=false){
@@ -230,6 +232,9 @@ export default{
   }
  .nav .logo h3{
    display: none;
+ }
+ .nav .search input{
+   max-width: 100%;
  }
 }
 </style>
