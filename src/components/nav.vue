@@ -1,12 +1,29 @@
 <template>
   <div class="nav">
-    <router-link class="logo" :to="{name:'home'}">
-      <img src="../../static/logo.png">
-      <h3>{{myName}}&ensp;Blogs</h3>
-    </router-link>
-    <div class="search">
+    <wrapper class="wrapper" :timeLine="true"></wrapper>
+    <div class="logo">
+      <i class="iconfont icon-nav"></i>
+      <router-link class="link" :to="{name:'home'}">
+        <img src="../../static/logo.png">
+        <h3>{{myName}}&ensp;Blogs</h3>
+      </router-link>
+      <div class="white"></div>
+    </div>
+    <div 
+      class="search" 
+      :class="searchActive?'active':''">
       <i class="iconfont icon-search"></i>
-      <input type="text" placeholder="搜索文章" autocomplete="off">
+      <input type="text" placeholder="搜索文章" v-model="searchVal" autocomplete="off" @input="search">
+      <div class="searchRes">
+        <router-link 
+          class="item"
+          v-for="(item,index) in searchRes"
+          :key="index"
+          :to="'/article/'+item.date"
+        >
+          {{item.title}}
+        </router-link>
+      </div>
     </div>
     <div class="right">
       <router-link 
@@ -58,10 +75,14 @@
 </template>
 
 <script>
+import wrapper from './wrapper.vue'
 export default{
   data(){
     return{
       current : -1,
+      searchActive : false,
+      searchVal : "",
+      searchRes : [],
       categeory : false,
       myName : global.blogsInfo.name,
       categeorys : [{text : "全部",param : "all"}].concat(global.blogsInfo.categeroy)
@@ -81,6 +102,19 @@ export default{
         case 'tags' : this.current=2;break;
         case 'timeLine' : this.current=3;break;
       }
+      document.querySelector('.nav .wrapper').style.transform = "translateX(-100%)"
+      this.searchVal = ""
+      this.searchRes = []
+    },
+    search(e){
+      const val = this.searchVal
+      this.searchRes = global.blogsInfo.blogsList.filter(item => {
+        const regex = new RegExp(`^${val}`,'gi')
+        return regex.test(item.title) || regex.test(item.brief)
+      })
+      if(val === "")
+        this.searchRes = []
+      console.log(this.searchRes)
     },
     show_categeory(back=false){
       if(back)
@@ -98,6 +132,19 @@ export default{
   },
   mounted() {
     this.routeChange()
+    window.onclick = (e) => {
+      if (!document.querySelector('.nav .search').contains(e.target))
+          this.searchActive = false
+      else 
+        this.searchActive = true
+      if(document.querySelector('.nav .icon-nav').contains(e.target))
+        document.querySelector('.nav .wrapper').style.transform = "translateX(0)"
+      else if(!document.querySelector('.nav .wrapper').contains(e.target))
+        document.querySelector('.nav .wrapper').style.transform = "translateX(-100%)"
+    }
+  },
+  components:{
+    wrapper
   }
 }
 </script>
@@ -112,6 +159,7 @@ export default{
   background-color: #ffffff;
   box-shadow: var(--box-shadow2);
   display: flex;
+  align-items: center;
   padding: 1em;
   user-select: none;
 }
@@ -120,31 +168,58 @@ export default{
   color: var(--font-dark-remark);
 }
 
+/* 侧边导航栏样式 */
+.nav .wrapper{
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  padding: 20px 5px;
+  transform: translateX(-100%);
+  transition: var(--transition-speed);
+}
+
 .nav .logo{
+  cursor: default;
   flex: 1;
-  cursor: pointer;
-  color: var(--font-dark3);
-  transition: var(--hover-speed);
   display: flex;
   align-items: center;
-  text-decoration: none;
 }
-.nav .logo h3{
+.nav .logo i{
+  display: none;
+}
+.nav .log .white{
+  flex: 1;
+}
+.nav .logo .link{
+  color: var(--font-dark3);
+  display: flex;
+  align-items: center;
+  transition: var(--hover-speed);
+  cursor: pointer;
+}
+.nav .logo .link h3{
   margin-top: -5px;
+  white-space: nowrap;
 }
-.nav .logo:hover{
+.nav .logo .link:hover h3{
   color: var(--green2);
-}
-.nav .logo img{
-  margin-right: 1em;
+} 
+.nav .logo .link img{
+  margin-right: 10px;
   width: 2em;
   border-radius: 50%;
 }
 
 .nav .search{
   margin-right: 1em;
+  height: 100%;
+  background-color: #FFFFFF;
   display: flex;
   align-items: center;
+  transition: var(--transition-speed);
 }
 .nav .search i{
   z-index: 999;
@@ -155,6 +230,28 @@ export default{
   max-width: 200px;
   height: 30px;
   padding: 5px 5px 5px 1.5em;
+  transition: var(--transition-speed);
+}
+.nav .search .searchRes{
+  position: absolute;
+  top: 35px;
+  width: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--box-shadow2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+}
+.nav .search .searchRes .item{
+  margin: 5px;
+  padding: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.nav .search .searchRes .item:hover{
+  background-color: rgba(90,216,166,0.5);
 }
 
 .nav .right{
@@ -170,7 +267,6 @@ export default{
   font-weight: 500;
   position: relative;
   text-decoration: none;
-  padding-bottom: 5px;
 }
 .nav .right .item i{
   color: inherit;
@@ -226,15 +322,51 @@ export default{
   letter-spacing: 2px;
 }
 
-@media (max-width:900px) {
-  .nav .logo img{
-    margin: 0;
+@media (max-width:900px){
+  .nav .logo{
+    flex: 0;
   }
- .nav .logo h3{
-   display: none;
+ .nav .search{
+   flex: 1;
  }
- .nav .search input{
-   max-width: 100%;
- }
+}
+
+@media (max-width:720px){
+  .nav{
+    padding: 10px 0 10px 10px;
+  }
+  
+  .nav .logo i{
+    display: block;
+    margin-right: 20px;
+  }
+  .nav .logo img,.nav .log .white{
+    display: none;
+  }
+  
+  .nav .search{
+    width: 0;
+    position: absolute;
+    right: 2em;
+    margin-right: 0;
+  }
+  .nav .search i{
+    cursor: pointer;
+  }
+  .nav .search input{
+    border-color: transparent;
+    max-width: 300px;
+  }
+  .nav .search.active{
+    width: 70%;
+    right: 5px;
+  }
+  .nav .search.active input{
+    border-color : #d9d9d9;
+  }
+  
+  .nav .right{
+    display: none;
+  }
 }
 </style>

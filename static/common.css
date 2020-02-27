@@ -25,8 +25,9 @@
   --green2 : #3eaf7c; 
   --origin : #ff9845;
   --gray : #5d7092;
+  --blue : #5b8ff9;
   --hover-speed : .4s ease-out;
-  --transition-speed : .8s ease-out;
+  --transition-speed : .8s;
 }
 ::-webkit-scrollbar-thumb:hover{
  background-color: var(--green1);
@@ -72,8 +73,24 @@ input:focus{
   border-color: var(--green1);
   box-shadow: 0 0 2px var(--green1);
 }
+a{
+  text-decoration: none;
+}
 
-.active{
-  color: var(--green2);
-  border-color: var(--green1);
+@media  (max-width:720px){
+  h1{
+    font-size: 1.6;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  h2{
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  h3{
+   font-size: 1.2rem; 
+   font-weight: 500;
+   letter-spacing: 1px;
+  }
 }

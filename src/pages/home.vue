@@ -6,56 +6,7 @@
   </div>
   
   <div class="main">
-    <div class="info-wrapper">
-      <div class="persional">
-        <img src="../../static/avator.jpg">
-        <h3>{{persionalInfo.name}}</h3>
-        <div class="count">
-          <div class="item">
-            <span>{{persionalInfo.article}}</span>
-            <p>文章</p>
-          </div>
-          <div class="line"></div>
-          <div class="item">
-            <span>{{tags.length}}</span>
-            <p>标签</p>
-          </div>
-        </div>
-      </div>
-      <div class="blogsInfo">
-        <header>
-          <i class="iconfont icon-menu"></i>
-          <p>分类</p>
-        </header>
-        <div class="categorys">
-          <router-link 
-            class="item"
-            v-for="(item,index) in categorys"
-            :key="index"
-            :to="'/categeory/'+item.param"
-          >
-            <i class="iconfont" :class="item.icon"></i>
-            <span>{{item.text}}</span>
-            <div class="amount">{{item.amount}}</div>
-          </router-link>
-        </div>
-        <header>
-          <i class="iconfont icon-tag"></i>
-          <p>标签</p>
-        </header>
-        <div class="tags">
-          <router-link 
-            class="tag"
-            :style="'background-color:'+bgcolors[index]"
-            v-for="(i,index) in randomTags"
-            :key="index"
-            :to="'/tags/'+tags[i]"
-          >
-            {{tags[i]}}
-          </router-link>
-        </div>
-      </div>
-    </div>
+    <wrapper class="wrapper" :timeLine="false"></wrapper>
     <div class="blogs">
       <blogCov 
         class="blog"
@@ -70,7 +21,7 @@
   <footer>
     <div class="item git">
       <i class="iconfont icon-git"></i>
-      <span>{{persionalInfo.github}}</span>
+      <a :href="persionalInfo.github" target="_blank">{{persionalInfo.github}}</a>
     </div>
     <div class="item email">
       <i class="iconfont icon-email"></i>
@@ -82,6 +33,7 @@
 
 <script>
 import blogCov from '../components/blogCov.vue'
+import wrapper from '../components/wrapper.vue'
 export default{
   data(){
     return{
@@ -89,26 +41,8 @@ export default{
         name : global.blogsInfo.name,
         email : global.blogsInfo.email,
         github : global.blogsInfo.github,
-        article : global.blogsInfo.article
       },
-      categorys : global.blogsInfo.categeroy,
-      tags : global.blogsInfo.tags,
       blogsList : [],
-      bgcolors : ['#5b8ff9','#6dc8ec','#5ad8a6','#1e9493','#ff9845','#e86452','#ff99c3',' #f6bd16','#945fb9']
-    }
-  },
-  computed:{
-    randomTags(){
-      let indexs = new Array()
-      let length = this.tags.length<9 ? this.tags.length : 9
-      for(let i=0;i<length;i++){
-        const index = Math.round(Math.random()*(this.tags.length-1))
-        if(indexs.indexOf(index) != -1)
-          i--
-        else
-          indexs[i] = index
-      }
-      return indexs
     }
   },
   mounted() {
@@ -125,7 +59,8 @@ export default{
       this.blogsList = global.blogsInfo.blogsList.splice(0,5)
   },
   components:{
-    blogCov
+    blogCov,
+    wrapper
   }
 }
 </script>
@@ -166,126 +101,9 @@ export default{
   padding-top: 50vh;
   transition: var(--transition-speed);
 }
-.home .main .info-wrapper{
-  margin-right: 20px;
-  width: 300px;
-  padding: 10px 4%;
-  background-color: #FFFFFF;
-  box-shadow: var(--box-shadow2);
-  border-radius: 5px;
-}
-.home .main .info-wrapper:hover{
-  box-shadow: var(--box-shadow1);
-}
-/* 个人信息 */
-.home .main .info-wrapper .persional{
-  width: 100%;
-  border-bottom: var(border3);
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.home .main .info-wrapper .persional img{
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: var(border3);
-}
-.home .main .info-wrapper .persional h3{
-  color: var(--green2);
-  margin: 10px 0;
-}
-.home .main .info-wrapper .persional .count{
-  display: flex;
-  font-weight: 500;
-}
-.home .main .info-wrapper .persional .count .line{
-  width: 0.05em;
-  background-color: var(--font-dark-common);
-  margin: 0 20px;
-}
-.home .main .info-wrapper .persional .count .item{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.home .main .info-wrapper .persional .count .item span{
-  font-size: 1.4em;
-}
-.home .main .info-wrapper .persional .count .item p{
-  font-size: 0.8em;
-  color: var(--font-dark-remark);
-}
-/* 博客的信息 */
-.home .main .info-wrapper .blogsInfo header{
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-}
-.home .main .info-wrapper .blogsInfo header i{
-  color: var(--font-dark-remark);
-  font-size: 1.5em;
-}
-/* 博客分类信息 */
-.home .main .info-wrapper .blogsInfo .categorys .item{
-  width: 95%;
-  margin: 10px auto 0 auto;
-  border-radius: 5px;
-  padding: 5px 10px;
-  background-color: #FFFFFF;
-  box-shadow: var(--box-shadow2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: width .5s; 
-  text-decoration: none;
-}
-.home .main .info-wrapper .blogsInfo .categorys .item:first-child{
-  margin-top: 0;
-}
-.home .main .info-wrapper .blogsInfo .categorys .item:hover{
-  width: 105%;
-}
-.home .main .info-wrapper .blogsInfo .categorys .item i{
-  font-size: 1.2em;
-  margin-right: 5px;
-}
-.home .main .info-wrapper .blogsInfo .categorys .item span{
-  flex: 1;
-  color: var(--green2);
-}
-.home .main .info-wrapper .blogsInfo .categorys .item .amount{
-  width: 25px;
-  height: 25px;
-  border-radius: 5px;
-  background-color: var(--origin);
-  color: #FFFFFF;
-  text-align: center;
-  line-height: 25px;
-  font-size: 0.8em;
-}
-/* 标签 */
-.home .main .info-wrapper .blogsInfo .tags{
-  display: flex;
-  flex-wrap: wrap;
-}
-.home .main .info-wrapper .blogsInfo .tags .tag{
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: #FFFFFF;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: .5s;
-  text-decoration: none;
-}
-.home .main .info-wrapper .blogsInfo .tags .tag:hover{
-  transform: scale(1.1);
-}
 
 .home .main .blogs{
+  margin-left: 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -306,14 +124,13 @@ export default{
   align-items: center;
 }
 .home footer .item{
-  cursor: pointer;
   display: flex;
   align-items: center;
 }
 .home footer i{
   color: var(--font-dark-remark);
 }
-.home footer span{
+.home footer span,.home footer a{
   margin-left: 5px;
   font-size: 1em;
   color: var(--green2);
@@ -321,22 +138,32 @@ export default{
 }
 .home footer .item.git i{
   font-size: 2em;
+  cursor: pointer;
 }
-.home footer .item.git:hover i,.home footer .item.git:hover span{
+.home footer .item.git:hover i,.home footer .item.git:hover a{
   color: purple;
 }
 .home footer .item.email i{
   font-size: 1.5em;
   margin-top: -5px;
 }
-.home footer .item.email:hover i,.home footer .item.email:hover span{
-  color: var(--origin);
-}
 
-@media (max-width:1000px) {
+@media (max-width:900px) {
   .home .main{
     width: 95%;
-    margin: 20px auto;
+  }
+}
+
+@media (max-width:720px) {
+  .home .main{
+    width: 95%;
+  }
+  .home .main .wrapper{
+    display: none;
+  }
+  .home .main .blogs{
+    width: 90%;
+    margin: auto;
   }
 }
 </style>

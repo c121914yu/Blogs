@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3526265",
+      "name": "menu",
+      "font_class": "nav",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "2180962",
+      "name": "左箭头",
+      "font_class": "last",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "11742085",
+      "name": "左箭头",
+      "font_class": "next",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "5849952",
       "name": "我 的",
       "font_class": "mine",
