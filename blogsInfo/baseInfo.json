@@ -1,0 +1,34 @@
+{
+	"email": "545436317@qq.com",
+	"github": "https://github.com/c121914yu",
+	"name": "yujinlong",
+	"article": 1,
+	"tags1": [],
+	"tags2": [],
+	"tags3": [
+		"vue",
+		"html",
+		"css",
+		"javascript"
+	],
+	"categeroy": [
+		{
+			"text": "日记",
+			"amount": 0,
+			"icon": "icon-riji",
+			"param": "diary"
+		},
+		{
+			"text": "游记",
+			"amount": 0,
+			"icon": "icon-travel",
+			"param": "travel"
+		},
+		{
+			"text": "技术",
+			"amount": 1,
+			"icon": "icon-jishu",
+			"param": "technology"
+		}
+	]
+}
