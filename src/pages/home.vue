@@ -160,6 +160,7 @@ export default{
   .home .main .wrapper{
     display: none;
   }
+<<<<<<< HEAD
   .home .main{
   }
   .home .main .blogs{
@@ -168,6 +169,11 @@ export default{
   }
   .home .main .blogs .blog{
     width: 100%;
+=======
+  .home .main .blogs{
+    width: 90%;
+    margin: auto;
+>>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
   }
 }
 </style>

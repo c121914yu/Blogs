@@ -4,7 +4,11 @@
     <div class="logo">
       <i class="iconfont icon-nav"></i>
       <router-link class="link" :to="{name:'home'}">
+<<<<<<< HEAD
         <img src="http://49.232.38.113/img/logo.png">
+=======
+        <img src="../../static/logo.png">
+>>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
         <h3>{{myName}}&ensp;Blogs</h3>
       </router-link>
       <div class="white"></div>
@@ -345,10 +349,16 @@ export default{
   }
   
   .nav .search{
+<<<<<<< HEAD
     max-width: 300px;
     width: 0;
     position: absolute;
     right: 3em;
+=======
+    width: 0;
+    position: absolute;
+    right: 2em;
+>>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
     margin-right: 0;
   }
   .nav .search i{
@@ -357,7 +367,10 @@ export default{
   .nav .search input{
     border-color: transparent;
     max-width: 300px;
+<<<<<<< HEAD
     margin-right: 10px;
+=======
+>>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
   }
   .nav .search.active{
     width: 70%;
