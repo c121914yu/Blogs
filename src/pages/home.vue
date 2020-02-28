@@ -1,8 +1,8 @@
 <template>
 <div class="home">
   <div class="head">
-    <img src="http://49.232.38.113/img/logo.png">
-    <h1>梦在远方,你在心里</h1>
+    <i class="iconfont icon-xuehua"></i>
+    <h1>梦在远方,你在心中</h1>
   </div>
   
   <div class="main">
@@ -47,8 +47,8 @@ export default{
   },
   mounted() {
     setTimeout(() => {
-      document.querySelector('.home .head img').style.marginTop = 0
-      document.querySelector('.home .head img').style.opacity = 1
+      document.querySelector('.home .head i').style.marginTop = 0
+      document.querySelector('.home .head i').style.opacity = 1
       document.querySelector('.home .head h1').style.opacity = 1
       document.querySelector('.home .main').style.opacity = 1
       document.querySelector('.home .main').style.paddingTop = 0
@@ -77,9 +77,10 @@ export default{
   justify-content: center;
   z-index: 2;
 }
-.home .head img{
-  width: 80px;
-  border-radius: 50%;
+.home .head i{
+  color: var(--green1);
+  font-size: 5em;
+  text-shadow: 0 0 5px var(--green1);
   margin-top: -100px;
   opacity: 0;
   transition: var(--transition-speed);

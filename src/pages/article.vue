@@ -1,7 +1,8 @@
 <template>
 <div class="article">
   <load v-if="loading"></load>
-  <div class="catalog">
+  <div class="catalogActive"><i class="iconfont icon-mulu"></i></div>
+  <div class="catalog" :class="catalogActive ? 'active':''">
     <h2>{{blog.title}}</h2>
     <div class="navs"></div>
   </div>
@@ -59,6 +60,7 @@ export default{
   data(){
     return{
       loading : false,
+      catalogActive : false,
       blog : {},
       date : "",
       current : 0,
@@ -71,7 +73,6 @@ export default{
   },
   methods:{
     routeChange(){
-      this.loading = true
       const articleID = this.$route.params.id
       this.$axios.get('/blogs/article/'+articleID)
       .then(res => {
@@ -135,13 +136,21 @@ export default{
     }
   },
   created() {
+    this.loading = true
     this.routeChange()
   },
   mounted() {
     window.addEventListener("scroll",this.getTitle); 
+    document.querySelector('.article').onclick = (e) => {
+      if (!document.querySelector('.article .catalogActive').contains(e.target) || this.catalogActive===true)
+        this.catalogActive = false
+      else
+        this.catalogActive = true
+    }
   },
   destroyed() {
     window.removeEventListener('scroll',this.getTitle)
+    document.querySelector('.article').onclick = ""
   },
   components:{
     load
@@ -154,15 +163,34 @@ export default{
 .article{
   margin-top: 0;
 }
+
+.article .catalogActive{
+  display: none;
+  z-index: 9999;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: var(--green1);
+  opacity: 0.9;
+}
+.article .catalogActive i{
+  font-size: 1.2em;
+  color: #F4F4F4;
+}
 .article .catalog{
+  z-index: 9;
   position: fixed;
   top: 0;
   left: 0;
   width: 250px;
   min-height: 100vh;
   padding: 90px 10px;
+  background-color: #FFFFFF;
   border-right: var(--border1);
   overflow: hidden;
+  transition: var(--transition-speed);
 }
 .article .catalog h2{
   color: var(--font-dark1);
@@ -256,8 +284,15 @@ export default{
 }
 
 @media (max-width:900px) {
+  .article .catalogActive{
+    display: block;
+  }
   .article .catalog{
-    display: none;
+    left: -260px;
+    width: 220px;
+  }
+  .article .catalog.active{
+    left: 0;
   }
   .article .main{
     width: 90%;

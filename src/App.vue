@@ -13,7 +13,8 @@ import load from './components/loading.vue'
 export default {
   data(){
     return{
-      created : false
+      created : false,
+      loaded : true
     }
   },
   components:{
@@ -35,6 +36,9 @@ export default {
       global.blogsInfo = data
       console.log(data)
       this.created = true
+      setTimeout(() => {
+        this.loaded = false
+      },1000)
     })
     .catch(err => {
       console.log(err)

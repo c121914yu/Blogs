@@ -2,9 +2,9 @@
   <div class="nav">
     <wrapper class="wrapper" :timeLine="true"></wrapper>
     <div class="logo">
-      <i class="iconfont icon-nav"></i>
+      <i class="iconfont icon-nav menu"></i>
       <router-link class="link" :to="{name:'home'}">
-        <img src="http://49.232.38.113/img/logo.png">
+        <i class="iconfont icon-xuehua xuehua"></i>
         <h3>{{myName}}&ensp;Blogs</h3>
       </router-link>
       <div class="white"></div>
@@ -154,7 +154,7 @@ export default{
 
 <style scoped>
 .nav{
-  z-index: 9999;
+  z-index: 99;
   position: fixed;
   top: 0;
   height: 60px;
@@ -190,7 +190,7 @@ export default{
   display: flex;
   align-items: center;
 }
-.nav .logo i{
+.nav .logo .menu{
   display: none;
 }
 .nav .log .white{
@@ -210,10 +210,12 @@ export default{
 .nav .logo .link:hover h3{
   color: var(--green2);
 } 
-.nav .logo .link img{
+.nav .logo .link .xuehua{
   margin-right: 10px;
-  width: 2em;
-  border-radius: 50%;
+  font-size: 2em;
+  color: var(--green1);
+  text-shadow: 0 0 5px var(--green1);
+  cursor: pointer;
 }
 
 .nav .search{
@@ -339,15 +341,16 @@ export default{
     padding: 10px 0 10px 10px;
   }
   
-  .nav .logo i{
+  .nav .logo .menu{
     display: block;
     margin-right: 20px;
   }
-  .nav .logo img,.nav .log .white{
+  .nav .logo .xuehua,.nav .logo .white{
     display: none;
   }
   
   .nav .search{
+    z-index: 999;
     max-width: 300px;
     width: 0;
     position: absolute;
