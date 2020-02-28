@@ -133,9 +133,12 @@ export default{
   mounted() {
     this.routeChange()
     window.onclick = (e) => {
-      if (!document.querySelector('.nav .search').contains(e.target))
-          this.searchActive = false
-      else 
+      if (!document.querySelector('.nav .search').contains(e.target)){
+        this.searchVal = ""
+        this.searchRes = []
+        this.searchActive = false
+      }
+      else
         this.searchActive = true
       if(document.querySelector('.nav .icon-nav').contains(e.target))
         document.querySelector('.nav .wrapper').style.transform = "translateX(0)"
@@ -234,7 +237,7 @@ export default{
 }
 .nav .search .searchRes{
   position: absolute;
-  top: 35px;
+  top: 50px;
   width: 100%;
   background-color: #FFFFFF;
   box-shadow: var(--box-shadow2);
@@ -345,16 +348,10 @@ export default{
   }
   
   .nav .search{
-<<<<<<< HEAD
     max-width: 300px;
     width: 0;
     position: absolute;
     right: 3em;
-=======
-    width: 0;
-    position: absolute;
-    right: 2em;
->>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
     margin-right: 0;
   }
   .nav .search i{
@@ -363,10 +360,6 @@ export default{
   .nav .search input{
     border-color: transparent;
     max-width: 300px;
-<<<<<<< HEAD
-    margin-right: 10px;
-=======
->>>>>>> 513bd4f29d0839e65cb4cb8f4862b219a0cf51e4
   }
   .nav .search.active{
     width: 70%;

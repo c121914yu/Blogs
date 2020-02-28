@@ -76,6 +76,9 @@ input:focus{
 a{
   text-decoration: none;
 }
+a,i,button{
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
 
 @media  (max-width:720px){
   h1{
