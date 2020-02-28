@@ -2,20 +2,9 @@
 
 > 个人博客项目
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+## 1.0.0 起步
+```bash
+  经过4天多的努力终于把博客项目上线了，虽然只包含了最基本的功能，但也算是这半年来做得最好的项目了，后续继续完善……
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+

@@ -1,7 +1,7 @@
 <template>
 <div class="home">
   <div class="head">
-    <img src="../../static/logo.png">
+    <img src="http://49.232.38.113/img/logo.png">
     <h1>梦在远方,你在心里</h1>
   </div>
   
@@ -69,7 +69,7 @@ export default{
 .home .head{
   width: 100%;
   height: 400px;
-  background: url(../../static/background.jpg) no-repeat center center/cover;
+  background: url(http://49.232.38.113/img/background.jpg) no-repeat center center/cover;
   background-position: 0 55%; 
   display: flex;
   flex-direction: column;
@@ -117,8 +117,7 @@ export default{
 
 .home footer{
   width: 100%;
-  height: 80px;
-  border-top: var(--border3);
+  border-top: var(--border1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -161,9 +160,14 @@ export default{
   .home .main .wrapper{
     display: none;
   }
+  .home .main{
+  }
   .home .main .blogs{
-    width: 90%;
+    width: 100%;
     margin: auto;
+  }
+  .home .main .blogs .blog{
+    width: 100%;
   }
 }
 </style>

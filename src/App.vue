@@ -3,11 +3,13 @@
     <Nav></Nav>
     <router-view class="view"/>
   </div>
+  <load v-else></load>
 </template>
 
 <script>
 global.blogsInfo = new Object()
 import Nav from './components/nav.vue'
+import load from './components/loading.vue'
 export default {
   data(){
     return{
@@ -15,10 +17,11 @@ export default {
     }
   },
   components:{
-    Nav
+    Nav,
+    load
   },
   beforeCreate() {
-    this.$axios.post('/blogs/getInfo')
+    this.$axios.get('/blogs/getInfo')
     .then(res => {
       let data = res.data
       data.tags = data.tags1.concat(data.tags2).concat(data.tags3)

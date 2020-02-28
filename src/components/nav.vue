@@ -4,7 +4,7 @@
     <div class="logo">
       <i class="iconfont icon-nav"></i>
       <router-link class="link" :to="{name:'home'}">
-        <img src="../../static/logo.png">
+        <img src="http://49.232.38.113/img/logo.png">
         <h3>{{myName}}&ensp;Blogs</h3>
       </router-link>
       <div class="white"></div>
@@ -345,9 +345,10 @@ export default{
   }
   
   .nav .search{
+    max-width: 300px;
     width: 0;
     position: absolute;
-    right: 2em;
+    right: 3em;
     margin-right: 0;
   }
   .nav .search i{
@@ -356,6 +357,7 @@ export default{
   .nav .search input{
     border-color: transparent;
     max-width: 300px;
+    margin-right: 10px;
   }
   .nav .search.active{
     width: 70%;

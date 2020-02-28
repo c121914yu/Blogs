@@ -6,8 +6,15 @@ Vue.config.productionTip = false
 import axios from 'axios'
 Vue.prototype.$axios = axios//全局使用axios
 
-//引入github修饰md文件样式
-import 'github-markdown-css'
+/* 使用代码高亮 */
+import hljs from 'highlight.js'
+import 'highlight.js/styles/solarized-light.css'
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)
+  })
+})
 
 /* eslint-disable no-new */
 new Vue({
