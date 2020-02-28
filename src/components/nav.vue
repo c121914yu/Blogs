@@ -180,7 +180,6 @@ export default{
   width: 60%;
   height: 100%;
   padding: 20px 5px;
-  transform: translateX(-100%);
   transition: var(--transition-speed);
 }
 

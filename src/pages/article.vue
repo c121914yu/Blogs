@@ -81,6 +81,7 @@ export default{
         this.getHtml(res.data)
         this.getTitle()
         this.getNavArticle(articleID)
+        document.body.scrollIntoView()
         this.loading = false
       })
       .catch(err => {
@@ -162,6 +163,7 @@ export default{
 @import url("../../static/markdown.css");
 .article{
   margin-top: 0;
+  padding-bottom: 15px;
 }
 
 .article .catalogActive{
@@ -169,7 +171,7 @@ export default{
   z-index: 9999;
   position: fixed;
   right: 1em;
-  bottom: 1em;
+  bottom: 3em;
   padding: 5px 10px;
   border-radius: 10px;
   background-color: var(--green1);

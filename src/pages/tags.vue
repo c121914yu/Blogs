@@ -99,13 +99,13 @@ export default{
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: var(--hover-speed);
+  transition: .1s;
   text-decoration: none;
   text-align: center;
   color: #FFFFFF;
 }
 .Tags .Tag .item:hover{
-  top: -3px;
+  transform: translateY(-3px);
 }
 .Tags .Tag .item.current{
   transform: scale(1.2);

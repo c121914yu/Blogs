@@ -30,7 +30,7 @@ export default {
       delete data.tags2
       delete data.tags3
       data.blogsList.forEach(item => {
-        item.date = new Date(item.date).getTime()
+        item.date = Math.floor(new Date(item.date).getTime()/1000)
         item.tags = item.tags.split(',')
       })
       global.blogsInfo = data

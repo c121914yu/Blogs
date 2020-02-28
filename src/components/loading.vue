@@ -25,15 +25,10 @@
   z-index: 99999;
 }
 .loading .load{
-  position: absolute;
-  top: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .loading .load span{
-  display: block;
   background-color: purple;
   width: 0;
   height: 0;
