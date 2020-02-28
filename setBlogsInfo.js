@@ -51,7 +51,7 @@ function addBlogs(param,blogsInfo,db){
       //保存
       let json = JSON.stringify(blogsInfo,"","\t")
       fs.writeFileSync('./blogsInfo/baseInfo.json',json)
-      fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+new Date(param.date).getTime()+".md")
+      fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+Math.floor(new Date(param.date).getTime()/1000)+".md")
       resolve(blogsInfo)
     })
   })

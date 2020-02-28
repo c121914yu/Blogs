@@ -2,7 +2,7 @@
 	"email": "545436317@qq.com",
 	"github": "https://github.com/c121914yu",
 	"name": "yujinlong",
-	"article": 1,
+	"article": 2,
 	"tags1": [],
 	"tags2": [],
 	"tags3": [
@@ -26,7 +26,7 @@
 		},
 		{
 			"text": "技术",
-			"amount": 1,
+			"amount": 2,
 			"icon": "icon-jishu",
 			"param": "technology"
 		}
