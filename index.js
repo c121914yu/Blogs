@@ -2,8 +2,6 @@ const express = require('express')
 const app = express()
 const favicon = require('serve-favicon')
 
-app.use(favicon(__dirname + '/favicon.ico'))
-
 const bodyParser=require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

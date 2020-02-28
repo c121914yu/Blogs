@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
-	host:'',
-	user: '',
-	password: '', // root 密码
-	database: '', // 数据库名
+	host:'49.232.38.113',
+	user: 'myBlogs',
+	password: '121914yu', // root 密码
+	database: 'myBlogs', // 数据库名
 	port:3306
 })
 
