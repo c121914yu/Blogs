@@ -63,5 +63,14 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
+  },
+  pwa: {
+    iconPaths: {
+      favicon32: './static/favicon.ico',
+      favicon16: './static/favicon.ico',
+      appleTouchIcon: './static/favicon.ico',
+      maskIcon: './static/favicon.ico',
+      msTileImage: './static/favicon.ico'
+    }
   }
 }
