@@ -1,5 +1,5 @@
 const fs = require("fs")
-
+const uuid = require('uuid')
 function setBlogsInfo(app,db){
   app.post('/blogs/addBlogs',(req,res) => {
     const param = req.body
@@ -11,6 +11,20 @@ function setBlogsInfo(app,db){
         if(err) throw err
         res.send(data)
       })
+    })
+  })
+  
+  /* 增加阅读量*/
+  app.post('/blogs/addReaded/',(req,res) => {
+    const data = req.body
+    data.readed++
+    const sql = `update blogsList 
+                 set readed=${data.readed}
+                 where id='${data.id}'
+                `
+    db.query(sql,(err,result) => {
+      if(err) throw err
+      res.send(result)
     })
   })
 }
@@ -31,6 +45,7 @@ function addBlogs(param,blogsInfo,db){
   return new Promise((resolve,reject) => {
     /* 更新数据库*/
     param.date = new Date()
+    param.id = uuid.v1()
     const sql = 'insert into blogsList set ?'
     db.query(sql,param,(err,res) => {
       if(err) reject(err)
@@ -51,7 +66,7 @@ function addBlogs(param,blogsInfo,db){
       //保存
       let json = JSON.stringify(blogsInfo,"","\t")
       fs.writeFileSync('./blogsInfo/baseInfo.json',json)
-      fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+Math.floor(new Date(param.date).getTime()/1000)+".md")
+      fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+param.id+".md")
       resolve(blogsInfo)
     })
   })
