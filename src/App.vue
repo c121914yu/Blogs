@@ -13,8 +13,7 @@ import load from './components/loading.vue'
 export default {
   data(){
     return{
-      created : false,
-      loaded : true
+      created : false
     }
   },
   components:{
@@ -25,10 +24,10 @@ export default {
     this.$axios.get('/blogs/getInfo')
     .then(res => {
       let data = res.data
-      data.tags = data.tags1.concat(data.tags2).concat(data.tags3)
-      delete data.tags1
-      delete data.tags2
-      delete data.tags3
+      data.tags = []
+      data.categeroy.forEach(item => {
+        data.tags = data.tags.concat(item.tags)
+      })
       data.blogsList.forEach(item => {
         item.date = new Date(item.date).getTime()
         item.tags = item.tags.split(',')
@@ -39,9 +38,6 @@ export default {
       global.blogsInfo = data
       console.log(data)
       this.created = true
-      setTimeout(() => {
-        this.loaded = false
-      },1000)
     })
     .catch(err => {
       console.log(err)

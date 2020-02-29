@@ -128,8 +128,8 @@ export default{
   font-weight: 500;
 }
 .info-wrapper .persional .count .line{
-  width: 0.05em;
-  background-color: var(--font-dark-common);
+  width: 0.1em;
+  background-color: var(--tint-gray);
   margin: 0 20px;
 }
 .info-wrapper .persional .count .item{

@@ -178,7 +178,7 @@ export default{
   left: 0;
   top: 0;
   width: 60%;
-  height: 100%;
+  height: 100vh;
   padding: 20px 5px;
   transition: var(--transition-speed);
 }

@@ -10,7 +10,7 @@
     :class="item.title != '' ? 'dotmb':'year'"
     v-for="(item,index) in blogsList"
     :key="index"
-    :to="'/article/'+item.id"
+    :to="item.id ? '/article/'+item.id : ''"
   >
     <div class="dot"></div>
     <div class="blog">
