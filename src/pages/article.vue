@@ -37,13 +37,13 @@
     <div class="markdown-body md" v-highlight></div>
     <div class="navArticle">
       <div v-if="lastBlog!=''" class="last">
-        <router-link :to="'/article/'+lastBlog.date">
+        <router-link :to="'/article/'+lastBlog.id">
           <i class="iconfont icon-last"></i>
           <span>{{lastBlog.title}}</span>
         </router-link>
       </div>
       <div v-if="nextBlog!=''" class="next">
-        <router-link :to="'/article/'+nextBlog.date">
+        <router-link :to="'/article/'+nextBlog.id">
           <span>{{nextBlog.title}}</span>
           <i class="iconfont icon-next"></i>
         </router-link>
@@ -87,6 +87,15 @@ export default{
           this.getNavArticle(articleID)
           document.body.scrollIntoView()
           this.loading = false
+          setTimeout(() => {//若停留5分钟则阅读量+1
+            this.$axios.post('/blogs/addReaded',{
+              id : articleID,
+              readed : this.blog.readed
+            })
+            .then(res => {
+              console.log('阅读+1')
+            })
+          },60000 * 5)
         })
         .catch(err => {
           alert('请求错误' + err)
@@ -97,7 +106,7 @@ export default{
     getBLogsInfo(articleID){
       //查询博客题目，小标题等信息
       this.blog = global.blogsInfo.blogsList.find(item => {
-        return item.date == articleID
+        return item.id == articleID
       })
     },
     getDate(){
@@ -133,11 +142,11 @@ export default{
     getNavArticle(articleID){
       const blogsList = global.blogsInfo.blogsList
       blogsList.find((item,index) => {
-        if(item.date == articleID){
+        if(item.id == articleID){
           this.lastBlog = index === 0 ? '' : blogsList[index-1]
           this.nextBlog = index === blogsList.length-1 ? '' : blogsList[index+1]
         }
-        return item.date == articleID
+        return item.id == articleID
       })
     }
   },
@@ -156,7 +165,6 @@ export default{
   },
   destroyed() {
     window.removeEventListener('scroll',this.getTitle)
-    document.querySelector('.article').onclick = ""
   },
   components:{
     load

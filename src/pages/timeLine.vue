@@ -45,7 +45,7 @@ export default{
       blogs.push({
         date : day,
         title : item.title,
-        id : item.date
+        id : item.id
       })
     })
     this.blogsList = blogs

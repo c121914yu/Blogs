@@ -2,7 +2,7 @@
 <div class="blog-cov">
   <router-link 
     class="title" 
-    :to="'/article/'+blog.date"
+    :to="'/article/'+blog.id"
   >
      <h3>{{blog.title}}</h3>
      <div class="line"></div>
