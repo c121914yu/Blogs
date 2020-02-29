@@ -2,14 +2,15 @@
 	"email": "545436317@qq.com",
 	"github": "https://github.com/c121914yu",
 	"name": "yujinlong",
-	"article": 2,
+	"article": 3,
 	"tags1": [],
 	"tags2": [],
 	"tags3": [
 		"vue",
 		"html",
 		"css",
-		"javascript"
+		"javascript",
+		"java"
 	],
 	"categeroy": [
 		{
@@ -26,7 +27,7 @@
 		},
 		{
 			"text": "技术",
-			"amount": 2,
+			"amount": 3,
 			"icon": "icon-jishu",
 			"param": "technology"
 		}

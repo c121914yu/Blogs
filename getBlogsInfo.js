@@ -18,7 +18,7 @@ function getBlogsInfo(app,db){
   })
 
   app.get('/blogs/article/:id',(req,res) => {
-    const fileName = req.params.id + '.md'
+    const fileName = Math.floor(req.params.id/1000) + '.md'
     let html = fs.readFileSync(__dirname + '/blogs/' + fileName)
     res.send(html)
   })
