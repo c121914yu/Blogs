@@ -56,6 +56,7 @@
 <script>
 import showdown from 'showdown'
 import load from '../components/loading.vue'
+var timer
 export default{
   data(){
     return{
@@ -76,6 +77,8 @@ export default{
     routeChange(){
       const articleID = this.$route.params.id
       if(articleID != this.oldID){
+        if(timer)
+          clearInterval(timer)
         this.loading = true
         this.oldID = articleID
         this.$axios.get('/blogs/article/'+articleID)
@@ -87,7 +90,8 @@ export default{
           this.getNavArticle(articleID)
           document.body.scrollIntoView()
           this.loading = false
-          setTimeout(() => {//若停留5分钟则阅读量+1
+          timer = setInterval(() => {//若停留5分钟则阅读量+1
+            clearInterval(timer)
             this.$axios.post('/blogs/addReaded',{
               id : articleID,
               readed : this.blog.readed
@@ -165,6 +169,8 @@ export default{
   },
   destroyed() {
     window.removeEventListener('scroll',this.getTitle)
+    if(timer)
+      clearInterval(timer)
   },
   components:{
     load
