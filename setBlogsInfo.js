@@ -3,43 +3,35 @@ const uuid = require('uuid')
 function setBlogsInfo(app,db){
   app.post('/blogs/addBlogs',(req,res) => {
     const param = req.body
-    getBaseInfo()
-    .then((blogsInfo,err) => {
+    let blogsInfo = JSON.parse(fs.readFileSync(__dirname + "/blogsInfo/baseInfo.json",'utf8'))
+    addBlogs(param,blogsInfo,db)//更新json数据
+    .then((data,err) => {
       if(err) throw err
-      addBlogs(param,blogsInfo,db)//更新json数据
-      .then((data,err) => {
-        if(err) throw err
-        res.send(data)
-      })
+      res.send(data)
     })
   })
   
   /* 增加阅读量*/
   app.post('/blogs/addReaded/',(req,res) => {
     const data = req.body
-    data.readed++
-    const sql = `update blogsList 
-                 set readed=${data.readed}
-                 where id='${data.id}'
-                `
+    let sql = `select * from blogsList`
     db.query(sql,(err,result) => {
       if(err) throw err
-      res.send(result)
+      let blogs = result.find(item => {
+        return item.id === data.id
+      })
+      sql = `update blogsList
+             set readed=${++blogs.readed}
+             where id='${blogs.id}'
+            `
+      db.query(sql,(err,result) => {
+        if(err) throw err
+        res.send(result)
+      })
     })
   })
 }
 module.exports = setBlogsInfo
-
-function getBaseInfo(){
-  return new Promise((resolve,reject) => {
-    fs.readFile("./blogsInfo/baseInfo.json",'utf8',(err, data) => {
-      if(err)
-        reject(err)
-      let obj = JSON.parse(data)
-      resolve(obj)
-    })
-  })
-}
 
 function addBlogs(param,blogsInfo,db){
   return new Promise((resolve,reject) => {
@@ -55,17 +47,18 @@ function addBlogs(param,blogsInfo,db){
         if(item.text === param.categeroy){
           item.amount++
           switch(item.text){//更新tags
-            case "日记":blogsInfo.tags1=updateTags(blogsInfo.tags1,param.tags);break;
-            case "游记":blogsInfo.tags2=updateTags(blogsInfo.tags2,param.tags);break;
-            case "技术":blogsInfo.tags3=updateTags(blogsInfo.tags3,param.tags);break;
+            case "日记":item.tags=updateTags(item.tags,param.tags);break;
+            case "游记":item.tags=updateTags(item.tags,param.tags);break;
+            case "技术":item.tags=updateTags(item.tags,param.tags);break;
           }
         }
         return item.text === param.categeroy
       })
       blogsInfo.article++//更新总数
-      //保存
+      //保存json文件
       let json = JSON.stringify(blogsInfo,"","\t")
       fs.writeFileSync('./blogsInfo/baseInfo.json',json)
+      //修改blogs文件名称
       fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+param.id+".md")
       resolve(blogsInfo)
     })

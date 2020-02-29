@@ -2,18 +2,14 @@ const fs = require('fs')
 
 function getBlogsInfo(app,db){
   app.get('/blogs/getInfo',(req,res) => {
-    let result = new Object()
-    getBaseInfo()
-    .then((data,err) => {
+    //读取json文件数据
+    let result = JSON.parse(fs.readFileSync(__dirname + "/blogsInfo/baseInfo.json",'utf8'))
+    // 读取数据库中博客列表
+    const sql = `select * from blogsList`
+    db.query(sql,(err,dbres) => {
       if(err) throw err
-      result = data
-      /* 读取数据库中博客列表*/
-      const sql = `select * from blogsList`
-      db.query(sql,(err,dbres) => {
-        if(err) throw err
-        result.blogsList = dbres
-        res.json(result)
-      })
+      result.blogsList = dbres
+      res.json(result)
     })
   })
 
@@ -24,14 +20,3 @@ function getBlogsInfo(app,db){
   })
 }
 module.exports = getBlogsInfo
-
-function getBaseInfo(){
-  return new Promise((resolve,reject) => {
-    fs.readFile("./blogsInfo/baseInfo.json",'utf8',(err, data) => {
-      if(err)
-        reject(err)
-      let obj = JSON.parse(data)
-      resolve(obj)
-    })
-  })
-}

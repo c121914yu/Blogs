@@ -2,34 +2,34 @@
 	"email": "545436317@qq.com",
 	"github": "https://github.com/c121914yu",
 	"name": "yujinlong",
-	"article": 3,
-	"tags1": [],
-	"tags2": [],
-	"tags3": [
-		"vue",
-		"html",
-		"css",
-		"javascript",
-		"java"
-	],
+	"article": 4,
 	"categeroy": [
 		{
 			"text": "日记",
 			"amount": 0,
 			"icon": "icon-riji",
-			"param": "diary"
+			"param": "diary",
+			"tags": []
 		},
 		{
 			"text": "游记",
 			"amount": 0,
 			"icon": "icon-travel",
-			"param": "travel"
+			"param": "travel",
+			"tags": []
 		},
 		{
 			"text": "技术",
-			"amount": 3,
+			"amount": 4,
 			"icon": "icon-jishu",
-			"param": "technology"
+			"param": "technology",
+			"tags": [
+				"vue",
+				"html",
+				"css",
+				"javascript",
+				"java"
+			]
 		}
 	]
 }
