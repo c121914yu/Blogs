@@ -1,13 +1,19 @@
 /* markdown转化html后样式 */
 .md blockquote{
-  margin: 5px 0;
+  margin: 10px 0;
   background-color: #F4F4F4;
   padding: 5px 10px;
   border-left: 8px solid var(--green1);
+  overflow: auto;
+  white-space: nowrap;
+}
+.md img{
+  display: block;
+  margin: 10px auto;
 }
 .md pre{
   font-family: monospace;
-  padding: 5px 10px;
+  padding: 5px 0;
 }
 .md a{
   color: var(--green2);

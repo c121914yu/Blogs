@@ -61,6 +61,7 @@ export default{
     return{
       loading : false,
       catalogActive : false,
+      oldID : "",
       blog : {},
       date : "",
       current : 0,
@@ -74,20 +75,24 @@ export default{
   methods:{
     routeChange(){
       const articleID = this.$route.params.id
-      this.$axios.get('/blogs/article/'+articleID)
-      .then(res => {
-        this.getBLogsInfo(articleID)
-        this.getDate()
-        this.getHtml(res.data)
-        this.getTitle()
-        this.getNavArticle(articleID)
-        document.body.scrollIntoView()
-        this.loading = false
-      })
-      .catch(err => {
-        alert('请求错误' + err)
-        this.loading = false
-      })
+      if(articleID != this.oldID){
+        this.loading = true
+        this.oldID = articleID
+        this.$axios.get('/blogs/article/'+articleID)
+        .then(res => {
+          this.getBLogsInfo(articleID)
+          this.getDate()
+          this.getHtml(res.data)
+          this.getTitle()
+          this.getNavArticle(articleID)
+          document.body.scrollIntoView()
+          this.loading = false
+        })
+        .catch(err => {
+          alert('请求错误' + err)
+          this.loading = false
+        })
+      }
     },
     getBLogsInfo(articleID){
       //查询博客题目，小标题等信息
@@ -314,7 +319,17 @@ export default{
     margin: 10px 0 20px 5px;
   }
   .article .main .navArticle{
+    padding-top: 10px;
     margin: 10px 0;
+    border-top: var(--border1);
+  }
+}
+@media (max-width:400px) {
+  .article .main .navArticle .last{
+    float: none;
+  }
+  .article .main .navArticle .next{
+    float: right;
     padding-bottom: 20px;
   }
 }
