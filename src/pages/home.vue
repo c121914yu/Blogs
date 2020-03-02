@@ -69,7 +69,7 @@ export default{
 .home .head{
   width: 100%;
   height: 400px;
-  background: url(http://49.232.38.113/img/background.jpg) no-repeat center center/cover;
+  background: url(http://blogs.jinlongyuchitang.cn/background.jpg) no-repeat center center/cover;
   background-position: 0 55%; 
   display: flex;
   flex-direction: column;

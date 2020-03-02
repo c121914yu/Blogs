@@ -1,7 +1,7 @@
 <template>
 <div class="info-wrapper">
   <div class="persional">
-    <img src="http://49.232.38.113/img/avator.jpg">
+    <img src="http://blogs.jinlongyuchitang.cn/avator.jpg">
     <h3>{{persionalInfo.name}}</h3>
     <div class="count">
       <div class="item">
