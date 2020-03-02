@@ -20,15 +20,16 @@ app.use(history({
   ]
 }))
 
+// 路由
 require('./route')(app,express)
 
+// 连接数据库
 const db = require('./connect')
-
 //用户获取博客
-require('./getBlogsInfo')(app,db)
+require('./serverBlogs/getBlogsInfo')(app,db)
 
 //编写博客信息
-require('./setBlogsInfo')(app,db)
+require('./serverBlogs/setBlogsInfo')(app,db)
 
 const port = 5000
 app.listen(port,(err) => {

@@ -3,7 +3,7 @@ const uuid = require('uuid')
 function setBlogsInfo(app,db){
   app.post('/blogs/addBlogs',(req,res) => {
     const param = req.body
-    let blogsInfo = JSON.parse(fs.readFileSync(__dirname + "/blogsInfo/baseInfo.json",'utf8'))
+    let blogsInfo = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/baseInfo.json",'utf8'))
     addBlogs(param,blogsInfo,db)//更新json数据
     .then((data,err) => {
       if(err) throw err
@@ -57,9 +57,9 @@ function addBlogs(param,blogsInfo,db){
       blogsInfo.article++//更新总数
       //保存json文件
       let json = JSON.stringify(blogsInfo,"","\t")
-      fs.writeFileSync('./blogsInfo/baseInfo.json',json)
+      fs.writeFileSync(__dirname+'/../jsonData/baseInfo.json',json)
       //修改blogs文件名称
-      fs.renameSync(__dirname+'/blogs/blogs.md',__dirname+"/blogs/"+param.id+".md")
+      fs.renameSync(__dirname+'/../blogs/blogs.md',__dirname+"/../blogs/"+param.id+".md")
       resolve(blogsInfo)
     })
   })

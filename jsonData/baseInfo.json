@@ -30,6 +30,20 @@
 				"javascript",
 				"java"
 			]
-		}
-	]
+		},
+    {
+      "text": "宝箱",
+      "amount": 1,
+      "icon": "icon-box",
+      "param": "box",
+      "tags" : []
+    }
+	],
+  "tools" : [
+    {
+      "text" : "网盘",
+      "icon": "icon-wangpan",
+      "color" : "#5b8ff9"
+    }
+  ]
 }
