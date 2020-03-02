@@ -12,6 +12,7 @@ module.exports = {
     proxyTable: {
       '/blogs':{
         target : 'http://49.232.38.113/blogs/',
+        // target : 'http://localhost:5000/blogs/',
         ws : true,
         changOrigin : true,
         pathRewrite : {

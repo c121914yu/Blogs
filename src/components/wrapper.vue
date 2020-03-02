@@ -180,7 +180,7 @@ export default{
   margin-top: 0;
 }
 .info-wrapper .blogsInfo .categorys .item:hover{
-  width: 105%;
+  width: 110%;
 }
 .info-wrapper .blogsInfo .categorys .item i{
   font-size: 1.2em;

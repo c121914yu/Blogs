@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1192434",
+      "name": "盒子",
+      "font_class": "box",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "3670496",
+      "name": "网盘",
+      "font_class": "wangpan",
+      "unicode": "e703",
+      "unicode_decimal": 59139
+    },
+    {
       "icon_id": "5708585",
       "name": "雪花",
       "font_class": "xuehua",

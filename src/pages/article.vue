@@ -261,15 +261,20 @@ export default{
   font-weight: 500;
   color: var(--green2);
 }
-.article .main .navArticle:hover span,.article .main .navArticle:hover i{
-  color: var(--blue);
-}
 .article .main .navArticle .last{
   float: left;
 }
 .article .main .navArticle .next{
   float: right;
 }
+.article .main .navArticle .last:hover span,
+.article .main .navArticle .last:hover i,
+.article .main .navArticle .next:hover span,
+.article .main .navArticle .next:hover i
+{
+  color: var(--blue);
+}
+
 
 /* 目录 */
 .article .catalog{
