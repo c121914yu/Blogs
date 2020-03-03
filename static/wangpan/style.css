@@ -87,7 +87,56 @@
   font-size: 2.5rem;
 }
 /* 图标设置颜色 */
-.main .files .file .item i.icon-dir{
+.iconfont{
+  color: var(--gray);
+}
+.icon-dir{
   color: #f6bd16;
 }
+.icon-yasuobao{
+  color: #6dc8ec;
+}
 
+.load{
+  z-index: 999;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+}
+.load .loading{
+  top: 40%;
+  width: 100px;
+	height: 50px;
+	/* transform-origin: bottom center; */
+	animation: rotate 3s linear infinite;
+}
+
+.load .loading .circle{
+	background-color: purple;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transform: scale(0);
+	animation: grow 1.5s linear infinite;
+	margin: -10px;
+}
+
+.load .loading .circle:nth-child(2){
+	background-color: palevioletred;
+	animation-delay: 0.75s;
+}
+
+@keyframes rotate{
+	to{
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes grow{
+	50%{
+		transform: scale(1);
+	}
+}

@@ -80,6 +80,9 @@ a{
 a,i,button{
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
+p{
+   word-break:break-all;  
+}
 
 @media  (max-width:720px){
   h1{

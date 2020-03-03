@@ -42,6 +42,7 @@
   "tools" : [
     {
       "text" : "网盘",
+      "url" : "http://www.jinlongyuchitang.cn/tools/wangpan",
       "icon": "icon-wangpan",
       "color" : "#5b8ff9"
     }

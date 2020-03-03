@@ -11,17 +11,21 @@ new Vue({
       let data = new Array()
       res.data.forEach(item => {
         const keySplit = item.key.split('/')
+        const icon = this.findIcon(item.key)
         data.push({
           url : "http://load.jinlongyuchitang.cn/" + item.key + '?attname=',
           key : item.key,
           name : keySplit[keySplit.length-1],
           size : this.renderSize(item.fsize),
           type : item.mimeType,
-          icon : "icon-picture",
+          icon : icon,
           keySplit : this.path.concat(keySplit)
         })
       })
       this.files = data
+      document.querySelector('.load').style.display = 'none'
+      console.log(data)
+      // console.log(res.data)
     })
   },
   computed:{
@@ -63,6 +67,27 @@ new Vue({
     },
     navPath(index){
       this.path.splice(index+1,this.path.length-index-1)
+    },
+    findIcon(key){
+      const reg = /\./g
+      if(!reg.test(key))//没有后缀名
+        return 'icon-wenjian'
+      let suffix = key.split('.')
+      suffix = suffix[suffix.length-1]
+      const img = /gif|jpg|png|bmp|ico/i
+      const yasuo = /rar|zip|7z|CAB|ARJ|LZH|TAR|GZ|ACE|UUE|BZ2|JAR|ISO|MPQ/i
+      const txt = /txt|pdf|xls|ppt|log|work/i
+      const code = /html|css|js|py|java|php|sql|xml/i
+      if(img.test(suffix))
+        return "icon-picture"
+      else if(yasuo.test(suffix))
+        return "icon-yasuobao"
+      else if(txt.test(suffix))
+        return "icon-wendang"
+      else if(code.test(suffix))
+        return "icon-daima"
+      else
+        return "icon-wenjian"
     },
     renderSize(value){//格式化文件大小
       if(null === value || value === '')
