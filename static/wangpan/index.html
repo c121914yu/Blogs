@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>云盘</title>
+  <base href="/">
+  <link rel="stylesheet" type="text/css" href="style.css" charset="utf-8"/>
+  <link rel="stylesheet" type="text/css" href="common.css" charset="utf-8"/>
+  <link rel="stylesheet" type="text/css" href="icon/iconfont.css" charset="utf-8"/>
+</head>
+<body>
+  <div id="app" class="main">
+    <h1 class="center">yjl云盘</h1>
+    <div class="files">
+      <header>
+        <i class="iconfont icon-back back" v-if="path.length>1" @click="back"></i>
+        <div class="back" v-else></div>
+        <span
+          class="path"
+          v-for="(item,index) in path"
+          :key="index"
+        >
+          <span v-if="index>0">/</span>
+          <span class="pathName" @click="navPath(index)">{{item}}</span>
+        </span>
+        <div class="white">单击即可打开或下载</div>
+        <div class="search">
+          <i class="iconfont icon--search"></i>
+          <input type="text" placeholder="输入文件名" v-model="searchFile">
+        </div>
+      </header>
+      <div class="file" v-if="searchFile === ''">
+        <div 
+          class="item"
+          v-for="(item,index) in currentFiles"
+          :key="index"
+        >
+          <a 
+            v-if="item.name === item.keySplit[path.length]"
+            :href="item.url"
+          >
+            <i class="iconfont" :class="item.icon"></i>
+            <p>{{item.name}}</p>
+          </a>
+          <div 
+            v-else
+            @click="inDir(item.keySplit[path.length])"
+          >
+            <i class="iconfont icon-dir"></i>
+            <p>{{item.keySplit[path.length]}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="file" v-else>
+        <div
+          class="item"
+          v-for="(item,index) in searchResult"
+          :key="index"
+        >
+          <a :href="item.url">
+            <i class="iconfont" :class="item.icon"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="dist/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="index.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
