@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "283049",
+      "name": "返回顶部",
+      "font_class": "totop",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
       "icon_id": "1192434",
       "name": "盒子",
       "font_class": "box",

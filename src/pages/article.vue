@@ -1,6 +1,7 @@
 <template>
 <div class="article">
   <load v-if="loading"></load>
+  <i class="iconfont icon-totop totop" @click="totop"></i>
   <div class="catalogActive"><i class="iconfont icon-mulu"></i></div>
   <div class="catalog" :class="catalogActive ? 'active':''">
     <h2>{{blog.title}}</h2>
@@ -130,18 +131,18 @@ export default{
     },
     getTitle(){//监听当前属于哪个标题
       const titles = document.querySelectorAll(".markdown-body .title")
+      const dom = document.querySelector('.catalog .navs').children
+      let current = 0
       for(let i=0;i<titles.length;i++){
         const top = titles[i].getBoundingClientRect().top
         if(top > 60){
-          const dom = document.querySelector('.catalog .navs').children
-          dom[i].classList.add('current')
-          if(dom[i-1])
-            dom[i-1].classList.remove('current')
-          if(dom[i+1])
-            dom[i+1].classList.remove('current')
-          return
+          current = i
+          break
         }
       }
+      for(let i=0;i<titles.length;i++)
+        dom[i].classList.remove('current')
+      dom[current].classList.add('current')
     },
     getNavArticle(articleID){
       const blogsList = global.blogsInfo.blogsList
@@ -152,6 +153,9 @@ export default{
         }
         return item.id == articleID
       })
+    },
+    totop(){
+      document.body.scrollIntoView()
     }
   },
   created() {
@@ -184,17 +188,32 @@ export default{
   margin-top: 0;
   padding-bottom: 15px;
 }
+.article .totop{
+  z-index: 9999;
+  position: fixed;
+  right: 0.8em;
+  bottom: 4em;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #FFFFFF;
+  background-color: var(--green1);
+  font-size: 1.2em;
+  border-radius: 50%;
+  opacity: 0.9;
+  cursor: pointer;
+}
 
 .article .catalogActive{
   display: none;
   z-index: 9999;
   position: fixed;
   right: 1em;
-  bottom: 3em;
+  bottom: 2em;
   padding: 5px 10px;
   border-radius: 10px;
   background-color: var(--green1);
   opacity: 0.9;
+  cursor: pointer;
 }
 .article .catalogActive i{
   font-size: 1.2em;

@@ -28,7 +28,7 @@
       class="item"
       v-for="(item,index) in tools"
       :key="index"
-      href="#"
+      :href="item.url"
       target="_blank"
     >
       <i class="iconfont" :class="item.icon" :style="'color:'+item.color"></i>

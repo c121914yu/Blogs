@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav" @mouseenter="mouseenter" @click="mouseenter">
     <wrapper class="wrapper" :timeLine="true"></wrapper>
     <div class="logo">
       <i class="iconfont icon-nav menu"></i>
@@ -92,6 +92,9 @@ export default{
     '$route' : 'routeChange',
   },
   methods:{
+    mouseenter(e){
+      document.querySelector('.nav').style.opacity = 1
+    },
     routeChange(){
       document.querySelector('.item .down').style.transform = "rotate(0)"
       document.querySelector('.item .categeory').style.height = "0"
@@ -144,6 +147,13 @@ export default{
         document.querySelector('.nav .wrapper').style.transform = "translateX(0)"
       else if(!document.querySelector('.nav .wrapper').contains(e.target))
         document.querySelector('.nav .wrapper').style.transform = "translateX(-100%)"
+    }
+    window.onscroll = (e) => {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      if(scrollTop > 80)
+        document.querySelector('.nav').style.opacity = 0.5
+      else
+        document.querySelector('.nav').style.opacity = 1
     }
   },
   components:{
