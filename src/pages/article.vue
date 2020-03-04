@@ -135,7 +135,7 @@ export default{
       let current = 0
       for(let i=0;i<titles.length;i++){
         const top = titles[i].getBoundingClientRect().top
-        if(top > 60){
+        if(top > -5){
           current = i
           break
         }
