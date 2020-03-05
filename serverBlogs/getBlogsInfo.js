@@ -15,8 +15,15 @@ function getBlogsInfo(app,db){
 
   app.get('/blogs/article/:id',(req,res) => {
     const fileName = req.params.id + '.md'
-    let html = fs.readFileSync(__dirname+'/../blogs/' + fileName)
-    res.send(html)
+    let html = fs.readFileSync(__dirname+'/../blogs/' + fileName,"utf8")
+    let comment = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/Lmessage.json","utf8"))
+    comment = comment.filter(item => {
+      return item.id === req.params.id
+    })
+    res.send({
+      html,
+      comment
+    })
   })
 }
 module.exports = getBlogsInfo

@@ -30,6 +30,20 @@ function setBlogsInfo(app,db){
       })
     })
   })
+  
+  // 添加评论
+  app.post('/blogs/Lmessage',(req,res) => {
+    const data = req.body
+    let Lmessage = JSON.parse(fs.readFileSync(__dirname+'/../jsonData/Lmessage.json','utf8'))
+    Lmessage.unshift(data)
+    Lmessage = JSON.stringify(Lmessage,"","\t")
+    fs.writeFile(__dirname+'/../jsonData/Lmessage.json',Lmessage,'utf8',(err) => {
+      if(err) 
+        res.send(err)
+      res.send('success')
+    })
+    
+  })
 }
 module.exports = setBlogsInfo
 
