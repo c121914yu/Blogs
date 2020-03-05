@@ -50,6 +50,37 @@
         </router-link>
       </div>
     </div>
+    <!-- 留言区 -->
+    <div class="message md">
+      <h3>留言区</h3>
+      <textarea  rows="5" v-model="editor.content" placeholder="留下点东西……">
+      </textarea>
+      <div class="editor">
+        <div class="info">
+          <span>昵称：</span>
+          <input type="text" placeholder="留下你的昵称(选填)" v-model="editor.name">
+        </div>
+        <div class="info">
+          <span>联系方式：</span>
+          <input type="text" placeholder="你的联系方式(选填)" v-model="editor.relation">
+        </div>
+        <div class="Lmessage" @click="Lmessage">留言</div>
+      </div>
+      <div class="comment">
+        <div 
+          class="item"
+          v-for="(item,index) in comment"
+          :key="index"
+        >
+          <header>
+            <span class="name"><i class="iconfont icon-mine"></i>{{item.name}}</span>
+            <span class="relation" v-if="item.relation!=''"><i class="iconfont icon-email"></i>{{item.relation}}</span>
+            <span class="date"><i class="iconfont icon-shijian"></i>{{item.date}}</span>
+          </header>
+          <div>{{item.content}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -68,7 +99,13 @@ export default{
       date : "",
       current : 0,
       lastBlog : '',
-      nextBlog : ''
+      nextBlog : '',
+      editor : {
+        name : "",
+        relation : "",
+        content : ""
+      },
+      comment : []
     }
   },
   watch:{
@@ -84,9 +121,10 @@ export default{
         this.oldID = articleID
         this.$axios.get('/blogs/article/'+articleID)
         .then(res => {
+          this.comment = res.data.comment
           this.getBLogsInfo(articleID)
           this.getDate()
-          this.getHtml(res.data)
+          this.getHtml(res.data.html)
           this.getTitle()
           this.getNavArticle(articleID)
           document.body.scrollIntoView()
@@ -156,6 +194,28 @@ export default{
     },
     totop(){
       document.body.scrollIntoView()
+    },
+    Lmessage(){
+      if(this.editor.content === "")
+        alert("未有留言内容")
+      else{
+        if(this.editor.name === "")
+          this.editor.name = "游客"
+        this.editor.id = this.blog.id
+        const date = new Date()
+        this.editor.date = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`
+        this.$axios.post('/blogs/Lmessage',this.editor)
+        .then(res => {
+          if(res.data != 'success')
+            alert('留言保存失败')
+        })
+        this.comment.unshift(this.editor)
+        this.editor = {
+          name : "",
+          relation : "",
+          content : ""
+        }
+      }
     }
   },
   created() {
@@ -294,6 +354,52 @@ export default{
   color: var(--blue);
 }
 
+/* 留言区 */
+.article .main .message{
+  margin-top: 50px;
+}
+.article .main .message textarea{
+  padding: 5px;
+  width: 100%;
+  resize: none;
+}
+.article .main .message .editor{
+  display: flex;
+  margin: 10px 0;
+}
+.article .main .message .editor .info{
+  margin-right: 5px;
+}
+.article .main .message .editor .info input{
+  padding: 5px 10px;
+}
+.article .main .message .editor .Lmessage{
+  padding: 5px 10px;
+  border: var(--border1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.article .main .message .editor .Lmessage:hover{
+  border-color: var(--green1);
+  background-color: var(--green1);
+  color: #FFFFFF;
+}
+.article .main .message .comment{
+  margin-top: 25px;
+}
+.article .main .message .comment .item{
+  margin-bottom: 15px;
+  box-shadow: var(--box-shadow2);
+  padding: 5px;
+  border-radius: 10px;
+}
+.article .main .message .comment header{
+  border-bottom: var(--border2);
+  padding-bottom: 5px;
+}
+.article .main .message .comment header span{
+  margin-right: 10px;
+}
 
 /* 目录 */
 .article .catalog{

@@ -59,18 +59,18 @@ h3{
  font-size: 1.3em; 
  font-weight: 500;
 }
-input{
+input,textarea{
   outline: none;
   border-radius: 5px;
   font-size: 1em;
   vertical-align: middle;
   border: var(--border1);
 }
-input::-webkit-input-placeholder{
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
   color: var(--font-dark-remark);
   font-size: 0.9em;
 }
-input:focus{
+input:focus,textarea:focus{
   border-color: var(--green1);
   box-shadow: 0 0 2px var(--green1);
 }

@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "9548095",
+      "name": "185078 - email mail streamline",
+      "font_class": "email",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
       "icon_id": "283049",
       "name": "返回顶部",
       "font_class": "totop",
@@ -95,13 +102,6 @@
       "font_class": "git",
       "unicode": "e604",
       "unicode_decimal": 58884
-    },
-    {
-      "icon_id": "8335311",
-      "name": "mail, envelope, letter, email, newsletter",
-      "font_class": "email",
-      "unicode": "e609",
-      "unicode_decimal": 58889
     },
     {
       "icon_id": "4984044",
