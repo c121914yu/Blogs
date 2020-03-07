@@ -49,3 +49,29 @@
 .md strong{
   font-weight: bold;
 }
+.md table
+{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+}
+.md table td,.md table th
+{
+  border: 1px solid #cad9ea;
+  color: #666;
+  height: 30px;
+}
+.md table thead th
+{
+  background-color: rgba(90,216,166,0.4);
+  width: 100px;
+}
+.md table tr:nth-child(odd)
+{
+  background: #fff;
+}
+.md table tr:nth-child(even)
+{
+  background: #F5FAFA;
+}

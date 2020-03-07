@@ -35,7 +35,8 @@
       </div>
       <p>{{blog.brief}}</p>
     </header>
-    <div class="markdown-body md" v-highlight></div>
+    <!-- <div class="md markdown" v-highlight></div> -->
+    <article class="md markdown" v-highlight></article>
     <div class="navArticle">
       <div v-if="lastBlog!=''" class="last">
         <router-link :to="'/article/'+lastBlog.id">
@@ -86,7 +87,7 @@
 </template>
 
 <script>
-import showdown from 'showdown'
+import marked from 'marked'
 import load from '../components/loading.vue'
 var timer
 export default{
@@ -161,16 +162,14 @@ export default{
       let md = data
       const reg = /articleLine/
       md = md.split('articleLine')
-      // //初始化markdown
-      let converter = new showdown.Converter()
-      
-      document.querySelector('.main .markdown-body').innerHTML = converter.makeHtml(md[1])
-      document.querySelector('.catalog .navs').innerHTML = converter.makeHtml(md[0])
+      // markdown转html
+      document.querySelector('.catalog .navs').innerHTML = marked(md[0])
+      document.querySelector('.main .markdown').innerHTML = marked(md[1])
     },
     getTitle(){//监听当前属于哪个标题
-      const titles = document.querySelectorAll(".markdown-body .title")
+      const titles = document.querySelectorAll(".markdown .title")
       const dom = document.querySelector('.catalog .navs').children
-      let current = 0
+      let current = titles.length-1
       for(let i=0;i<titles.length;i++){
         const top = titles[i].getBoundingClientRect().top
         if(top > -5){
