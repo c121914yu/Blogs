@@ -1,0 +1,257 @@
+#app{
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  max-width: 500px;
+  background-color: rgba(109,200,236,0.3);
+}
+
+.user{
+  margin: 0 auto;
+  top: 30%;
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+  background-color: rgba(255,255,255,0.6);
+  box-shadow: var(--box-shadow1);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+}
+.user input{
+  width: 100%;
+  padding: 5px 10px;
+  margin: 10px 0;
+}
+.user button{
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #FFFFFF;
+  background-color: rgba(90,216,166,0.8);
+  font-size: 1.2em;
+  cursor: pointer;
+  outline: none;
+  transition: var(--hover-speed);
+}
+.user button:hover{
+  background-color: var(--green2);
+}
+.user .item{
+  flex-shrink: 0;
+  width: 100%;
+  transition: var(--transition-speed);
+}
+
+.user .login{
+  /* transform: translateX(-105%); */
+  /* transform: translateX(105%); */
+}
+.user .login .info{
+  margin-top: 15px;
+  text-align: center;
+  cursor:default;
+}
+.user .login .info span{
+  cursor: pointer;
+}
+.user .login .info span:hover{
+  color: var(--green2);
+}
+
+.user .back{
+  position: absolute;
+  top: 5px;
+  padding: 0 5px;
+  color: #FFFFFF;
+  background-color: var(--green1);
+  cursor: pointer;
+  transition: var(--hover-speed);
+}
+.user .back:hover{
+  background-color: var(--green2);
+}
+.user .rand{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.user .rand input{
+  flex: 1;
+}
+.user .rand button{
+  margin-left: 10px;
+  left: 0;
+  transform: translateX(0);
+  font-size: 1em;
+  width: auto;
+}
+
+.user .findPsw{
+  /* transform: translateX(-100%); */
+  transform: translateX(-210%);
+}
+.user .findPsw .back{
+  right: -10px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.user .register{
+  transform: translateX(-90%);
+}
+.user .register .back{
+  left: -10px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.task{
+  display: none;
+  width: 90%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+.task header,.task .container{
+  padding: 5px;
+  box-shadow: var(--box-shadow1);
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 10px;
+}
+.task header .userInfo{
+  border-bottom: var(--border1);
+  border-bottom-style: dotted;
+}
+.task header .userInfo .email{
+  margin: 0 10px;
+}
+.task header .userInfo .login-out{
+  color: var(--green2);
+  cursor: pointer;
+}
+.task header .userInfo .login-out:hover{
+  color: #e86452;
+}
+.task header .all{
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.task header .all .value{
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.task header .all .item:nth-child(1) .value{
+  color: #5d7092;
+}
+.task header .all .item:nth-child(2) .value{
+  color: #ff9845;
+}
+.task header .all .item:nth-child(3) .value{
+  color: #1e9493;
+}
+
+.task .container{
+  margin-top: 15px;
+}
+.task .container .newTask{
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+.task .container input{
+  margin-right: 10px;
+  flex: 1;
+  padding: 5px 10px;
+  background-color: transparent;
+}
+.task .container .newTask i{
+  font-size: 2em;
+  color: var(--green2);
+  cursor: pointer;
+}
+.task .tasks{
+  margin-top: 10px;
+  padding: 0 10px;
+}
+.task .tasks .item{
+  margin: 10px 0;
+  border: 1px solid var(--green2);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+.task .tasks .item p{
+  flex: 1;
+  white-space: pre-wrap;
+}
+.task .tasks .item i{
+  font-size: 1.5em;
+  margin: 5px;
+  cursor: pointer;
+  color: var(--font-dark-remark);
+}
+
+.task .container .border{
+  margin: 10px auto;
+  width: 60%;
+  height: 3px;
+  background-color: var(--green2);
+  border-radius: 2px;
+}
+#completed{
+  color: var(--green2);
+}
+.remark{
+  text-align: center;
+  color: var(--font-dark-remark);
+}
+
+.load{
+  z-index: 999;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  /* display: flex; */
+  display: none;
+  justify-content: center;
+}
+.load .loading{
+  top: 40%;
+	height: 50px;
+  width: 50px;
+	transform-origin: bottom center;
+	animation: rotate 3s linear infinite;
+}
+.load .loading .circle{
+	background-color: purple;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transform: scale(0);
+	animation: grow 1.5s linear infinite;
+	margin: -10px;
+}
+.load .loading .circle:nth-child(2){
+	background-color: palevioletred;
+	animation-delay: 0.75s;
+}
+
+@keyframes rotate{
+	to{
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes grow{
+	50%{
+		transform: scale(1);
+	}
+}

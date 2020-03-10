@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>任务清单</title>
+  <base href="/">
+  <link rel="stylesheet" type="text/css" href="./task.css" charset="utf-8"/>
+  <link rel="stylesheet" type="text/css" href="./common.css" charset="utf-8"/>
+  <link rel="stylesheet" type="text/css" href="./taskIcon/iconfont.css" charset="utf-8"/>
+  <link rel="icon" href="taskIcon/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app">
+  <div class="load">
+    <div class="loading">
+    	<div class="circle"></div>
+    	<div class="circle"></div>
+    </div>
+  </div>
+  <div class="user">
+    <div class="login item">
+      <h2 class="center">账号登录</h2>
+      <input type="text" placeholder="邮箱地址" v-model="loginInfo.email">
+      <input type="password" placeholder="密码" v-model="loginInfo.password">
+      <button @click="numberSet('login')">登录</button>
+      <div class="info">
+        <span @click="linkTo('findPsw')">忘记密码</span>
+        |
+        <span @click="linkTo('register')">注册账号</span>
+      </div>
+    </div>
+    <div class="findPsw item">
+      <h2 class="center">找回密码</h2>
+      <input type="text" placeholder="邮箱地址" v-model="loginInfo.email">
+      <input type="password" placeholder="新密码" v-model="loginInfo.password"/>
+      <input type="password" placeholder="再次输入密码" v-model="surePsw"/>
+      <div class="rand">
+        <input type="text" placeholder="验证码" v-model="loginInfo.rand">
+        <button @click="getRand('Frand')" id="Frand">{{randText}}</button>
+      </div>
+      <div class="back" @click="backLogin('findPsw')">返回登录</div>
+      <button type="button" @click="numberSet('findPsw')">找回密码</button>
+    </div>
+    <div class="register item">
+      <h2 class="center">账号注册</h2>
+      <input type="text" placeholder="邮箱地址" v-model="loginInfo.email">
+      <input type="password" placeholder="密码" v-model="loginInfo.password"/>
+      <input type="password" placeholder="再次输入密码" v-model="surePsw"/>
+      <div class="rand">
+        <input type="text" placeholder="验证码" v-model="loginInfo.rand">
+        <button @click="getRand('Rrand')" id="Rrand">{{randText}}</button>
+      </div>
+      <div class="back" @click="backLogin('register')">返回登录</div>
+      <button type="button" @click="numberSet('register')">注册</button>
+    </div>
+  </div>
+
+  <div class="task">
+    <header>
+      <div class="userInfo">
+        <span class="email">{{userInfo.email}}</span>
+        <span class="login-out" @click="loginOut">[退出]</span>
+      </div>
+      <div class="all">
+        <div 
+          class="item"
+          v-for="(item,index) in countTask"
+          :key="index"
+        >
+          <p>{{item.text}}</p>
+          <p class="value">{{item.value}}</p>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="newTask">
+        <input type="text" placeholder="添加任务" v-model="taskContent">
+        <i class="iconfont icon-add" @click="addTask"></i>
+      </div>
+      <div class="remark" v-if="tasks.length===0">暂无任务</div>
+      <div class="tasks">
+        <div 
+          class="item"
+          v-for="(item,index) in unfinishTasks"
+          :key="index"
+        >
+          <p>{{item.content}}</p>
+          <div class="btns">
+            <i class="iconfont icon-lajitong-copy" @click="remove(item)"></i>
+            <i class="iconfont icon-xiao66" @click="changeTask(item,1)"></i>
+          </div>
+        </div>
+      </div>
+      <div class="border" v-if="unfinishTasks.length>0 && completedTasks.length>0"></div>
+      <div class="tasks">
+        <div 
+          class="item"
+          v-for="(item,index) in completedTasks"
+          :key="index"
+        >
+          <p>{{item.content}}</p>
+          <div class="btns">
+            <i class="iconfont icon-lajitong-copy" @click="remove(item)"></i>
+            <i id="completed" class="iconfont icon-queding" @click="changeTask(item,0)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./task.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -27,16 +27,23 @@ function route(app,express){
     next();  
   });
   
-  app.use(express.static(__dirname+'/static'))
-     .use(express.static(__dirname+'/static/dist'))
-     .use(express.static(__dirname+'/static/wangpan'))
+  
+  app.use(express.static(__dirname+'/static/dist'))
   //请求界面
   app.get('/', (req,res) => {
     res.sendFile(__dirname + '/static/dist/index.html')
   })
 
+  //网盘
+  app.use(express.static(__dirname+'/static/wangpan'))
   app.get('/tools/wangpan',(req,res) => {
-    res.sendFile(__dirname + '/static/wangpan/index.html')
+    res.sendFile(__dirname + '/static/wangpan/wangpan.html')
+  })
+  
+  //任务列表
+  app.use(express.static(__dirname+'/static/taskList'))
+  app.get('/tools/task',(req,res) => {
+    res.sendFile(__dirname + '/static/taskList/task.html')
   })
 }
 module.exports = route

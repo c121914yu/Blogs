@@ -17,6 +17,8 @@ require('./serverBlogs/getBlogsInfo')(app,db)
 require('./serverBlogs/setBlogsInfo')(app,db)
 //网盘
 require('./tools/wangpan')(app,db)
+//任务列表
+require('./tools/taskList')(app,db)
 
 const port = 5000
 app.listen(port,(err) => {
