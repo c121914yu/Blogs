@@ -56,7 +56,7 @@ export default{
     if(global.blogsInfo.blogsList.length <= 5)
       this.blogsList = global.blogsInfo.blogsList
     else
-      this.blogsList = global.blogsInfo.blogsList.splice(0,5)
+      this.blogsList = global.blogsInfo.blogsList.slice(0,5)
   },
   components:{
     blogCov,

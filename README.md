@@ -2,6 +2,9 @@
 
 > 个人博客项目
 
+### 1.2.1
+1. 修复bug —— global.blogsInfo.blogsList.slice(0,5) -> global.blogsInfo.blogsList.slice(0,5)
+
 ## 1.2.0
 1. 新增留言区
 2. 修改了table样式

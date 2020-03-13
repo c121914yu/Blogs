@@ -7,6 +7,9 @@
   overflow: auto;
   white-space: nowrap;
 }
+.md ul{
+  margin-left: 10px;
+}
 .md img{
   display: block;
   margin: 10px auto;

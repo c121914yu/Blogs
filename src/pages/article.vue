@@ -142,6 +142,7 @@ export default{
           },60000 * 5)
         })
         .catch(err => {
+          console.log(err)
           alert('请求错误' + err)
           this.loading = false
         })
@@ -150,7 +151,7 @@ export default{
     getBLogsInfo(articleID){
       //查询博客题目，小标题等信息
       this.blog = global.blogsInfo.blogsList.find(item => {
-        return item.id == articleID
+        return item.id === articleID
       })
     },
     getDate(){
