@@ -166,6 +166,15 @@ export default{
       // markdown转html
       document.querySelector('.catalog .navs').innerHTML = marked(md[0])
       document.querySelector('.main .markdown').innerHTML = marked(md[1])
+      document.querySelectorAll('.catalog .navs p').forEach(item => {
+        item.onclick = (e) => {
+          e.preventDefault()
+          const id = item.children[0].hash.replace('#','')
+          const dom = document.getElementById(id).parentElement
+          window.scrollTo(0,dom.offsetTop+150)
+          // console.log(document.querySelector('#2'))
+        }
+      })
     },
     getTitle(){//监听当前属于哪个标题
       const titles = document.querySelectorAll(".markdown .title")
@@ -185,8 +194,9 @@ export default{
         var currentMB = document.documentElement.clientHeight - dom[current].offsetTop - 170
         if(currentMB < 37)
           document.querySelector('.catalog').scrollTop  += 37
-        else
-          document.querySelector('.catalog').scrollTop = 0
+        else{
+          document.querySelector('.catalog').scrollTop -= 10
+        }
       }
     },
     getNavArticle(articleID){
@@ -255,6 +265,7 @@ export default{
   width: 100vw;
   margin-top: 0;
   padding-bottom: 15px;
+  overflow: auto;
 }
 .article .totop{
   position: fixed;
@@ -271,6 +282,7 @@ export default{
   cursor: pointer;
 }
 
+/* 目录 */
 .article .catalogActive{
   position: fixed;
   display: none;
@@ -299,10 +311,41 @@ export default{
   background-color: #FFFFFF;
   border-right: var(--border1);
   transition: var(--transition-speed);
-  overflow:auto;
+  overflow-y:auto;
 }
 .article .catalog .navs{
   transition: var(--transition-speed);
+}
+.article .catalog{
+  user-select: none;
+}
+.article .catalog .navs{
+  padding: 10px 5px;
+}
+.article .catalog .navs p{
+  padding-left: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+.article .catalog .navs p a{
+  text-decoration: none;
+  line-height: 2;
+}
+.article .catalog .navs p:hover a{
+  color: var(--green2);
+  text-decoration: none;
+}
+.article .catalog .navs .current{
+  background-color: var(--green1);
+  color: #FFFFFF;
+}
+.article .catalog .navs .current a{
+  color: #f4f4f4;
+}
+.article .catalog .navs .current:hover a{
+  color: #f4f4f4;
 }
 .article .catalog h2{
   color: var(--font-dark1);
@@ -413,39 +456,6 @@ export default{
 }
 .article .main .message .comment header span{
   margin-right: 10px;
-}
-
-/* 目录 */
-.article .catalog{
-  user-select: none;
-}
-.article .catalog .navs{
-  padding: 10px 5px;
-}
-.article .catalog .navs p{
-  padding-left: 10px;
-  border-radius: 5px;
-  margin: 5px 0;
-  background-color: #FFFFFF;
-}
-.article .catalog .navs p a{
-  text-decoration: none;
-  line-height: 2;
-  cursor: pointer;
-}
-.article .catalog .navs p a:hover{
-  color: var(--green2);
-  text-decoration: none;
-}
-.article .catalog .navs .current{
-  background-color: var(--green1);
-  color: #FFFFFF;
-}
-.article .catalog .navs .current a{
-  color: #f4f4f4;
-}
-.article .catalog .navs .current a:hover{
-  color: #f4f4f4;
 }
 
 @media (max-width:900px) {
