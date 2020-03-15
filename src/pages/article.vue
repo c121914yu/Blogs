@@ -128,7 +128,7 @@ export default{
           this.getHtml(res.data.html)
           this.getTitle()
           this.getNavArticle(articleID)
-          document.body.scrollIntoView()
+          // document.body.scrollIntoView()
           this.loading = false
           timer = setInterval(() => {//若停留5分钟则阅读量+1
             clearInterval(timer)
@@ -178,9 +178,16 @@ export default{
           break
         }
       }
-      for(let i=0;i<titles.length;i++)
-        dom[i].classList.remove('current')
-      dom[current].classList.add('current')
+      if(titles.length > 0){
+        for(let i=0;i<titles.length;i++)
+          dom[i].classList.remove('current')
+        dom[current].classList.add('current')
+        var currentMB = document.documentElement.clientHeight - dom[current].offsetTop - 170
+        if(currentMB < 37)
+          document.querySelector('.catalog').scrollTop  += 37
+        else
+          document.querySelector('.catalog').scrollTop = 0
+      }
     },
     getNavArticle(articleID){
       const blogsList = global.blogsInfo.blogsList
@@ -245,12 +252,13 @@ export default{
 <style>
 @import url("../../static/markdown.css");
 .article{
+  width: 100vw;
   margin-top: 0;
   padding-bottom: 15px;
 }
 .article .totop{
-  z-index: 9999;
   position: fixed;
+  z-index: 9999;
   right: 0.8em;
   bottom: 4em;
   padding: 5px 10px;
@@ -264,9 +272,9 @@ export default{
 }
 
 .article .catalogActive{
+  position: fixed;
   display: none;
   z-index: 9999;
-  position: fixed;
   right: 1em;
   bottom: 2em;
   padding: 5px 10px;
@@ -284,16 +292,21 @@ export default{
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
+  height:100%;
+  min-width: 250px;
   min-height: 100vh;
   padding: 90px 10px;
   background-color: #FFFFFF;
   border-right: var(--border1);
-  overflow: hidden;
+  transition: var(--transition-speed);
+  overflow:auto;
+}
+.article .catalog .navs{
   transition: var(--transition-speed);
 }
 .article .catalog h2{
   color: var(--font-dark1);
+  transition: var(--transition-speed);
 }
 
 .article .main{
@@ -365,6 +378,7 @@ export default{
 }
 .article .main .message .editor{
   display: flex;
+  flex-wrap: wrap;
   margin: 10px 0;
 }
 .article .main .message .editor .info{
@@ -439,11 +453,11 @@ export default{
     display: block;
   }
   .article .catalog{
-    left: -260px;
-    width: 220px;
+    transform: translateX(-100%);
+    min-width: 220px;
   }
   .article .catalog.active{
-    left: 0;
+    transform: translateX(0);
   }
   .article .main{
     width: 90%;

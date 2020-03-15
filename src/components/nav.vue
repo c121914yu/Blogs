@@ -76,6 +76,7 @@
 
 <script>
 import wrapper from './wrapper.vue'
+var lastNavName = "",lastID = ""
 export default{
   data(){
     return{
@@ -96,10 +97,12 @@ export default{
       document.querySelector('.nav').style.opacity = 1
     },
     routeChange(){
+      const RouteName = this.$route.name
+      const RouteID = this.$route.params.id
       document.querySelector('.item .down').style.transform = "rotate(0)"
       document.querySelector('.item .categeory').style.height = "0"
       this.current = -1
-      switch(this.$route.name){
+      switch(RouteName){
         case 'home' : this.current=0;break;
         case 'categeory' : this.current=1;break;
         case 'tags' : this.current=2;break;
@@ -108,6 +111,12 @@ export default{
       document.querySelector('.nav .wrapper').style.transform = "translateX(-100%)"
       this.searchVal = ""
       this.searchRes = []
+      // 回滚顶部
+      if(RouteName != lastNavName || RouteID != lastID){
+        lastNavName = lastNavName
+        lastID = RouteID
+        document.body.scrollIntoView()
+      }
     },
     search(e){
       const val = this.searchVal
@@ -117,7 +126,7 @@ export default{
       })
       if(val === "")
         this.searchRes = []
-      console.log(this.searchRes)
+      // console.log(this.searchRes)
     },
     show_categeory(back=false){
       if(back)
