@@ -9,7 +9,7 @@
 ### 1.2.1
 1. 修复bug —— global.blogsInfo.blogsList.slice(0,5) -> global.blogsInfo.blogsList.slice(0,5)
 2. 优化路由切换：切换后跳转至顶部
-3. 优化目录导航，解决目录内g容过多底部会隐藏且不能滚动的bug。
+3. 优化目录导航，解决目录内容过多底部会隐藏且不能滚动的bug。
 
 ## 1.2.0
 1. 新增留言区

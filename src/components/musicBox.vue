@@ -1,13 +1,19 @@
 <template>
-<div class="musicBox" @mouseleave="showBox=false">
+<div class="musicBox">
 	<i 
 		class="iconfont icon-music picture"
 		@mouseenter="showBox=true"
 	>
   </i>
-	<div class="box" v-show="showBox">
-		<div id="animate"></div>
-		<!-- <audio id="audio" :src="audio.url"></audio> -->
+	<div class="box" v-show="showBox" @mouseleave="showBox=false">
+		<div class="animate">
+			<div
+				class="item"
+				v-for="item in 32"
+				:key="item"
+			>
+			</div>
+		</div>
 		<header>
 			<p class="name">{{audio.name}}</p>
 			<p class="time">{{audio.currentMinutes}}:{{audio.currentSeconds}}/{{audio.minutes}}:{{audio.seconds}}</p>
@@ -17,7 +23,7 @@
 				class="range" 
 				:value='audio.value' 
 				min="0" max="1" step="0.001" 
-				@mousedown="setVal=false" 
+				@mousedown="setTime=true" 
 				@input="dragTime"
 				@change="changeTime"
 			>
@@ -25,8 +31,8 @@
 		
 		<div class="btns">
 			<i class="iconfont icon-last" @click="switchMusic(-1)"></i>
-			<i class="iconfont icon-start" v-if="!playing" @click="musicSet()"></i>
-			<i class="iconfont icon-pause" v-else @click="musicSet()"></i>
+			<i class="iconfont icon-start" v-if="!playing" @click="musicPlay()"></i>
+			<i class="iconfont icon-pause" v-else @click="musicPlay()"></i>
 			<i class="iconfont icon-next" @click="switchMusic(1)"></i>
 		</div>
 	</div>
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-var N = 128
+var source,audioCtx,analyser,offect=0
 var urls = [
 	{
 		name : "司南 - 冬眠",
@@ -59,114 +65,112 @@ export default{
 		return{
 			showBox : true,
 			currentUrl : 0,
-			audio : {
-				url : '',
-				name : '',
+			audio : {},
+			playing : false,
+			setTime : false,
+			buffer : ''
+		}
+	},
+	methods:{
+		initAudio(){
+			document.querySelector('.progress').style.width = 0
+			this.audio = {
+				url : urls[currentUrl].url,
+				name : urls[currentUrl].name,
 				minutes : '00',
 				seconds : '00',
 				currentMinutes : '00',
 				currentSeconds : '00',
 				value : 0
-			},
-			Audio : '',
-			Analyser : '',
-			playing : false,
-			setVal : true
-		}
-	},
-	methods:{
-		playMusic(){
-			this.loadAudio()
-			var scene = new THREE.Scene()
-			var group = new THREE.Group()
-			for(let i=0;i<N/2;i++){
-			  let geometry = new THREE.Geometry()
-			  let material = new THREE.MeshLambertMaterial({
-			    color : 0x3eaf7c
-			  })
-				let p1 = new THREE.Vector3(i*7 - N/4*7,-15,0)
-				let p2 = new THREE.Vector3(p1.x,15,0)
-				geometry.vertices.push(p1,p2)
-				let line = new THREE.Line(geometry,material)
-			  group.add(line)
 			}
-			scene.add(group)
-			var ambient = new THREE.AmbientLight(0xffffff)
-			scene.add(ambient);
-			var point = new THREE.PointLight(0xffffff,1)
-			point.position.set(200,200,100)
-			scene.add(point)
-			var point2 = new THREE.PointLight(0xffffff,1)
-			point2.position.set(-200,200,100)
-			scene.add(point2)
-			var width = 240
-			var height = 80
-			var k = width / height
-			var s = 70
-			var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 0.1, 1500)
-			camera.position.set(0, 0,500)
-			camera.lookAt(scene.position)
-			var renderer = new THREE.WebGLRenderer()
-			renderer.setSize(width, height)
-			renderer.setClearColor(0xffffff, 1)
-			document.getElementById('animate').appendChild(renderer.domElement)
-			
-			const render = () => {
-			  renderer.render(scene, camera)
-			  requestAnimationFrame(render)
-			  if(this.Analyser && this.Audio.isPlaying){
-			    var arr = this.Analyser.getFrequencyData()
-			    group.children.forEach((elem, index) => {
-			      elem.scale.y = arr[index] / 80 + 1
-			    })
-					// if(!this.setVal)
-					// 		return
-					// let duration = this.Audio.buffer.duration
-					// let currentTime = this.Audio.source.context.currentTime
-					// let minutes = parseInt(currentTime / 60, 10)
-					// let seconds = parseInt(currentTime % 60)
-					// this.audio.currentMinutes = minutes
-					// this.audio.currentSeconds = seconds
-					// if(minutes < 10)
-					// 	this.audio.currentMinutes = '0' + minutes
-					// if(seconds < 10)
-					// 	this.audio.currentSeconds = '0' + seconds
-					// this.audio.value = currentTime / duration
-					// document.querySelector('.progress').style.width = this.audio.value*94 + '%'
-			  }
-			}
-			render()
+			offect = 0
+			this.setTime = false
+			this.playing = false
 		},
-		loadAudio(){
-			const listener = new THREE.AudioListener()
-			this.Audio = new THREE.Audio(listener)
-			const audioLoader = new THREE.AudioLoader()
-			audioLoader.load(this.audio.url,buffer => {
-			  this.Audio.setBuffer(buffer)
-				this.Analyser = new THREE.AudioAnalyser(this.Audio,2*N)
-				this.audio.minutes = parseInt(buffer.duration / 60, 10)
-				this.audio.seconds = parseInt(buffer.duration % 60)
-				this.Audio.play()
-				this.playing = true
+		loadMusic(){
+			this.initAudio()
+			// 初始化audio API
+			let AudioContext = window.AudioContext || window.webkitAudioContext;
+			audioCtx = new AudioContext() //实例化AudioContext对象
+			var dataArray
+			
+			// 请求音频文件，以二进制格式返回
+			this.$axios.get(this.audio.url,{responseType:'arraybuffer'})
+			.then(res => {
+				// 解码二进制文件
+				audioCtx.decodeAudioData(res.data,(buffer) => {
+					this.buffer = buffer
+					this.setSource()
+					// 创建接受数组
+					dataArray = new Uint8Array(analyser.frequencyBinCount)
+					// 获取音频时长
+					this.audio.minutes = parseInt(buffer.duration / 60, 10)
+					this.audio.seconds = parseInt(buffer.duration % 60)
+					// 开始播放
+					this.playing = true
+					source.start()
+					draw()
+				})
 			})
+			
+			const doms = document.querySelectorAll('.animate .item')
+			const draw = () => {
+				requestAnimationFrame(draw)
+				if(!this.playing) return
+				analyser.getByteFrequencyData(dataArray)//傅里叶计算
+				
+				doms.forEach((item,i) => {
+					item.style.height = `${dataArray[i]/8 + 30}px`
+				})
+				
+				// 更新进度
+				if(this.setTime) return
+				const currentTime = audioCtx.currentTime + offect
+				const minutes = parseInt(currentTime / 60, 10)
+				const seconds = parseInt(currentTime % 60)
+				this.audio.currentMinutes = minutes
+				this.audio.currentSeconds = seconds
+				if(minutes < 10)
+					this.audio.currentMinutes = '0' + minutes
+				if(seconds < 10)
+					this.audio.currentSeconds = '0' + seconds
+				this.audio.value = currentTime / source.buffer.duration
+				document.querySelector('.progress').style.width = this.audio.value*94 + '%'
+			}
+			draw()
+		},
+		setSource(){
+			// 创建音频解析器
+			analyser = audioCtx.createAnalyser()
+			analyser.fftSize = 64
+			// 创建播放节点
+			source = audioCtx.createBufferSource()
+			// 填充音频buffer数据
+			source.buffer = this.buffer
+			// 连接节点
+			source.connect(analyser)
+			analyser.connect(audioCtx.destination)
+			// 播放结束时间
+			source.onended = () => {
+				if(audioCtx.currentTime > 0)
+					this.switchMusic(1)
+			}
 		},
 		switchMusic(e){
+			audioCtx.close()
+			this.playing = false
 			if(e === 1 &&  currentUrl === urls.length-1)
 				currentUrl = 0
 			else if(e === -1 && currentUrl === 0)
 				currentUrl = urls.length-1
 			else
 				currentUrl += e
-			this.audio.url = urls[currentUrl].url
-			this.audio.name = urls[currentUrl].name
-			this.Audio.stop()
-			this.loadAudio()
+			this.loadMusic()
 		},
 		dragTime(e){
 			const value = e.target.value
-			const duration = this.Audio.buffer.duration
-			const minutes = parseInt(value * duration / 60, 10)
-			const seconds = parseInt(value * duration % 60)
+			const minutes = parseInt(value * source.buffer.duration / 60, 10)
+			const seconds = parseInt(value * source.buffer.duration % 60)
 			this.audio.currentMinutes = minutes
 			this.audio.currentSeconds = seconds
 			if(minutes < 10)
@@ -176,28 +180,33 @@ export default{
 			this.audio.value = value
 			document.querySelector('.progress').style.width = this.audio.value*95 + '%'
 		},
-		musicSet(){
-			if(this.playing)
-				this.Audio.pause()
-			else
-				this.Audio.play()
-			this.playing = !this.playing
-		},
 		changeTime(e){
 			const value = e.target.value
-			const duration = this.Audio.buffer.duration
-			console.log(this.Audio.gain)
-			this.setVal = true
-			
-		}
+			offect = value * this.buffer.duration
+			source.stop()
+			audioCtx = new AudioContext()
+			this.setSource()
+			source.start(0,offect)
+			this.playing = true
+			this.setTime = false
+		},
+		musicPlay(){
+			if(this.playing)
+				audioCtx.suspend()
+			else
+				audioCtx.resume()
+			this.playing = !this.playing
+		},
 	},
 	mounted() {
 		urls.sort(() => {
 			return 0.5-Math.random()
 		})
-		this.audio.url = urls[currentUrl].url
-		this.audio.name = urls[currentUrl].name
-		this.playMusic()
+		this.loadMusic()
+	},
+	beforeDestroy() {
+		this.initAudio()
+		audioCtx.close()
 	}
 }
 </script>
@@ -229,7 +238,6 @@ export default{
 .musicBox .box{
 	position: absolute;
 	min-width: 250px;
-	max-width: 300px;
 	left: -220px;
 	top: 0;
 	width: 200px;
@@ -238,10 +246,22 @@ export default{
 	box-shadow: var(--box-shadow1);
 	border-radius: 5px;
 }
-.musicBox .box #animate{
+
+.musicBox .box .animate{
 	width: 100%;
 	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	overflow: hidden;
 }
+.musicBox .box .animate .item{
+	width: 2px;
+	height: 30px;
+	background-color: var(--green1);
+	border-radius: 4px;
+}
+
 .musicBox .box header{
 	text-align: center;
 }
