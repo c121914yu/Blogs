@@ -20,7 +20,7 @@
 }
 .md a{
   color: var(--green2);
-  text-decoration: underline;
+  text-decoration: none;
 }
 .md hr{
   height: 0;

@@ -35,7 +35,6 @@
       </div>
       <p>{{blog.brief}}</p>
     </header>
-    <!-- <div class="md markdown" v-highlight></div> -->
     <article class="md markdown" v-highlight></article>
     <div class="navArticle">
       <div v-if="lastBlog!=''" class="last">
@@ -210,7 +209,7 @@ export default{
       })
     },
     totop(){
-      document.body.scrollIntoView()
+      window.scrollTo(0,0)
     },
     Lmessage(){
       if(this.editor.content === "")

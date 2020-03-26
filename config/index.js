@@ -11,8 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/blogs':{
-        // target : 'http://49.232.38.113/blogs/',
-        target : 'http://localhost:5000/blogs/',
+        target : 'http://49.232.38.113/blogs/',
+        // target : 'http://localhost:5000/blogs/',
         ws : true,
         changOrigin : true,
         pathRewrite : {

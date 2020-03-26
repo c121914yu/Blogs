@@ -19,7 +19,7 @@
           class="item"
           v-for="(item,index) in searchRes"
           :key="index"
-          :to="'/article/'+item.date"
+          :to="'/article/'+item.id"
         >
           {{item.title}}
         </router-link>
@@ -115,7 +115,7 @@ export default{
       if(RouteName != lastNavName || RouteID != lastID){
         lastNavName = lastNavName
         lastID = RouteID
-        document.body.scrollIntoView()
+        window.scrollTo(0,0)
       }
     },
     search(e){
@@ -166,7 +166,7 @@ export default{
     }
   },
   components:{
-    wrapper
+    wrapper,
   }
 }
 </script>
@@ -258,14 +258,15 @@ export default{
 .nav .search .searchRes{
   position: absolute;
   top: 50px;
-  width: 100%;
+  min-width: 200px;
+	white-space: nowrap;
   background-color: #FFFFFF;
   box-shadow: var(--box-shadow2);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   text-align: center;
-  overflow: hidden;
+	opacity: hidden;
 }
 .nav .search .searchRes .item{
   margin: 5px;
@@ -349,6 +350,9 @@ export default{
   .nav .logo{
     flex: 0;
   }
+	.nav .logo .link{
+		font-size: 0.8em;
+	}
  .nav .search{
    flex: 1;
  }
@@ -358,7 +362,9 @@ export default{
   .nav{
     padding: 10px 0 10px 10px;
   }
-  
+  .nav .logo .link{
+  	font-size: 1.2em;
+  }
   .nav .logo .menu{
     display: block;
     margin-right: 20px;

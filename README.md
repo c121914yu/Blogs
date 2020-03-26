@@ -2,6 +2,10 @@
 
 > 个人博客项目
 
+### 1.2.2
+1. 增加音乐盒效果
+2. 优化导航搜索移动端兼容问题
+
 ### 1.2.1
 1. 修复bug —— global.blogsInfo.blogsList.slice(0,5) -> global.blogsInfo.blogsList.slice(0,5)
 2. 优化路由切换：切换后跳转至顶部

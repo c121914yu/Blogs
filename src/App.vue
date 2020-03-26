@@ -1,6 +1,7 @@
 <template>
   <div id="app" v-if="created">
     <Nav></Nav>
+		<musicBox></musicBox>
     <router-view class="view"/>
   </div>
   <load v-else></load>
@@ -10,6 +11,7 @@
 global.blogsInfo = new Object()
 import Nav from './components/nav.vue'
 import load from './components/loading.vue'
+import musicBox from './components/musicBox.vue'
 export default {
   data(){
     return{
@@ -18,7 +20,8 @@ export default {
   },
   components:{
     Nav,
-    load
+    load,
+		musicBox
   },
   beforeCreate() {
     this.$axios.get('/blogs/getInfo')

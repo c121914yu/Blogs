@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "887857",
+      "name": "暂停",
+      "font_class": "start",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "13630230",
+      "name": "暂停",
+      "font_class": "pause",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "10651775",
+      "name": "音乐",
+      "font_class": "music",
+      "unicode": "e72d",
+      "unicode_decimal": 59181
+    },
+    {
       "icon_id": "1526269",
       "name": "任务",
       "font_class": "task",
