@@ -2,5 +2,4 @@
 node_modules/
 /static/dist/
 blogs/
-blogsInfo/
-https/
+jsonData/
