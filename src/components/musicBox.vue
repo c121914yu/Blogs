@@ -1,7 +1,7 @@
 <template>
 <div class="musicBox">
 	<i 
-		class="iconfont icon-music picture"
+		class="iconfont icon-music"
 		@mouseenter="showBox=true"
 	>
   </i>
@@ -24,6 +24,7 @@
 				:value='audio.value' 
 				min="0" max="1" step="0.001" 
 				@mousedown="setTime=true" 
+				@touchstart="setTime=true"
 				@input="dragTime"
 				@change="changeTime"
 			>
@@ -41,6 +42,7 @@
 
 <script>
 var source,audioCtx,analyser,offect=0
+var firstLoad = true
 var urls = [
 	{
 		name : "司南 - 冬眠",
@@ -63,7 +65,7 @@ var currentUrl = 0
 export default{
 	data(){
 		return{
-			showBox : true,
+			showBox : false,
 			currentUrl : 0,
 			audio : {},
 			playing : false,
@@ -107,8 +109,10 @@ export default{
 					this.audio.minutes = parseInt(buffer.duration / 60, 10)
 					this.audio.seconds = parseInt(buffer.duration % 60)
 					// 开始播放
-					this.playing = true
-					source.start()
+					if(!firstLoad){
+						this.playing = true
+						source.start()
+					}
 					draw()
 				})
 			})
@@ -142,6 +146,7 @@ export default{
 		setSource(){
 			// 创建音频解析器
 			analyser = audioCtx.createAnalyser()
+			// 计算频域信号时使用的 FFT，值为需要可视化的数量的两倍
 			analyser.fftSize = 64
 			// 创建播放节点
 			source = audioCtx.createBufferSource()
@@ -150,15 +155,13 @@ export default{
 			// 连接节点
 			source.connect(analyser)
 			analyser.connect(audioCtx.destination)
-			// 播放结束时间
+			// 播放结束事件
 			source.onended = () => {
 				if(audioCtx.currentTime > 0)
 					this.switchMusic(1)
 			}
 		},
 		switchMusic(e){
-			audioCtx.close()
-			this.playing = false
 			if(e === 1 &&  currentUrl === urls.length-1)
 				currentUrl = 0
 			else if(e === -1 && currentUrl === 0)
@@ -166,9 +169,12 @@ export default{
 			else
 				currentUrl += e
 			this.loadMusic()
+			source.stop()
+			audioCtx.close()
 		},
 		dragTime(e){
 			const value = e.target.value
+			// 更新当前时间
 			const minutes = parseInt(value * source.buffer.duration / 60, 10)
 			const seconds = parseInt(value * source.buffer.duration % 60)
 			this.audio.currentMinutes = minutes
@@ -203,9 +209,18 @@ export default{
 			return 0.5-Math.random()
 		})
 		this.loadMusic()
+		document.body.onclick = (e) => {
+			if(firstLoad){
+				document.body.onclick = ""
+				firstLoad = false
+				this.playing = true
+				source.start()
+			}
+		}
 	},
 	beforeDestroy() {
 		this.initAudio()
+		source.stop()
 		audioCtx.close()
 	}
 }
@@ -215,10 +230,10 @@ export default{
 .musicBox{
 	position: absolute;
 	z-index: 99;
-	right: 20px;
-	top: 10px;
+	right: 10px;
+	margin-top: 60px;
 }
-.musicBox .picture{
+.musicBox .icon-music{
 	/* rotate对inline元素不起作用，转化成block */
 	display: block;
 	font-size: 1.8em;
@@ -301,13 +316,14 @@ export default{
 .range:focus{
 	box-shadow: none;
 }
+/* 进度条样式 */
 .range::-webkit-slider-runnable-track{
 	height: 5px;
 	border-radius: 20px;
 	background-color: var(--tint-gray);
 	z-index: 0;
 }  
-/* 滑块修改样式 */
+/* 滑块样式 */
 .range::-webkit-slider-thumb{
 	-webkit-appearance: none;
 	height: 13px;
@@ -317,6 +333,7 @@ export default{
 	border-radius: 50%;
 	cursor: pointer;
 }
+/* 填充背景 */
 .progress{
 	background-color: var(--green1);
 	height: 5px;

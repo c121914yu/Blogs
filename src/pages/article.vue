@@ -312,6 +312,9 @@ export default{
   transition: var(--transition-speed);
   overflow-y:auto;
 }
+.article .catalog h2{
+	max-width: 250px;
+}
 .article .catalog .navs{
   transition: var(--transition-speed);
 }

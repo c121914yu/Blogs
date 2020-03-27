@@ -53,6 +53,6 @@ export default {
 @import url("../static/common.css");
 @import url("../static/icon/iconfont.css");
 .view{
-  margin-top: 60px;
+  padding-top: 60px;
 }
 </style>
