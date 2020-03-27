@@ -262,7 +262,6 @@ export default{
 @import url("../../static/markdown.css");
 .article{
   width: 100vw;
-  margin-top: 0;
   padding-bottom: 15px;
   overflow: auto;
 }
@@ -357,7 +356,7 @@ export default{
 .article .main{
   margin-left: 30%;
   margin-right: 5%;
-  padding: 100px 30px 30px 30px;
+  padding: 30px;
   max-width: 800px;
 }
 .article .main header h1{
@@ -480,7 +479,7 @@ export default{
 @media (max-width:720px) {
   .article .main{
     width: 100%;
-    padding: 80px 10px 10px 20px;
+    padding: 25px 10px 10px 10px;
   }
   .article .main header .info .item{
     margin: 0 10px;

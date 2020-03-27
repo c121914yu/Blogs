@@ -170,7 +170,6 @@ export default{
 				currentUrl += e
 			this.loadMusic()
 			source.stop()
-			audioCtx.close()
 		},
 		dragTime(e){
 			const value = e.target.value
@@ -230,7 +229,7 @@ export default{
 .musicBox{
 	position: absolute;
 	z-index: 99;
-	right: 10px;
+	right: 15px;
 	margin-top: 60px;
 }
 .musicBox .icon-music{
