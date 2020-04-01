@@ -111,8 +111,9 @@ export default{
 					// 开始播放
 					if(!firstLoad){
 						this.playing = true
-						source.start()
 					}
+					source.start()
+					firstLoad = false
 					draw()
 				})
 			})
@@ -208,14 +209,14 @@ export default{
 			return 0.5-Math.random()
 		})
 		this.loadMusic()
-		document.body.onclick = (e) => {
-			if(firstLoad){
-				document.body.onclick = ""
-				firstLoad = false
-				this.playing = true
-				source.start()
-			}
-		}
+		// document.body.onclick = (e) => {
+		// 	if(firstLoad){
+		// 		document.body.onclick = ""
+		// 		firstLoad = false
+		// 		this.playing = true
+		// 		source.start()
+		// 	}
+		// }
 	},
 	beforeDestroy() {
 		this.initAudio()

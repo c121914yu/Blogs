@@ -127,8 +127,9 @@ export default{
           this.getHtml(res.data.html)
           this.getTitle()
           this.getNavArticle(articleID)
-          // document.body.scrollIntoView()
-          this.loading = false
+					setTimeout(()=>{
+						this.loading = false
+					},1000)
           timer = setInterval(() => {//若停留5分钟则阅读量+1
             clearInterval(timer)
             this.$axios.post('/blogs/addReaded',{
@@ -235,7 +236,6 @@ export default{
     }
   },
   created() {
-    this.loading = true
     this.routeChange()
   },
   mounted() {

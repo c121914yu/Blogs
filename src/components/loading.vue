@@ -34,7 +34,7 @@
   height: 0;
   border-radius: 50%;
   margin: 0 8px;
-  animation: bounce 0.6s infinite alternate;
+  animation: bounce 0.6s linear infinite alternate;
   transform: translateY(0);
 }
 .loading .load span:nth-child(2){
@@ -46,6 +46,11 @@
 }
 
 @keyframes bounce{
+	from{
+		width: 0;
+		height: 0;
+		transform: translateY(0);
+	}
   to{
     width: 16px;
     height: 16px;

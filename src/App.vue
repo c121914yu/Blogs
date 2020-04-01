@@ -15,7 +15,7 @@ import musicBox from './components/musicBox.vue'
 export default {
   data(){
     return{
-      created : false
+      created : false,
     }
   },
   components:{
