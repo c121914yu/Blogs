@@ -21,7 +21,7 @@
           :key="index"
           :to="'/article/'+item.id"
         >
-          {{item.title}}
+          <p>{{item.title}}</p>
         </router-link>
       </div>
     </div>
@@ -258,21 +258,21 @@ export default{
 .nav .search .searchRes{
   position: absolute;
   top: 50px;
-  min-width: 200px;
-	white-space: nowrap;
+	max-width: 100vw;
+	width: auto;
   background-color: #FFFFFF;
   box-shadow: var(--box-shadow2);
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
   text-align: center;
-	opacity: hidden;
 }
 .nav .search .searchRes .item{
-  margin: 5px;
-  padding: 5px 0;
+	display: block;
+	width: 100%;
+	min-width: 200px;
+  padding: 10px 5px;
   cursor: pointer;
   border-radius: 5px;
+	white-space: nowrap;
 }
 .nav .search .searchRes .item:hover{
   background-color: rgba(90,216,166,0.5);
