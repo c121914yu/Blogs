@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
-const favicon = require('serve-favicon')
+var cookieParser = require('cookie-parser')
+
+//使用cookie-parser
+app.use(cookieParser())
 
 const bodyParser=require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,6 +18,8 @@ const db = require('./connect')
 require('./serverBlogs/getBlogsInfo')(app,db)
 //编写博客信息
 require('./serverBlogs/setBlogsInfo')(app,db)
+// 后台管理系统
+require('./tools/blogsManage.js')(app,db)
 //网盘
 require('./tools/wangpan')(app,db)
 //任务列表
