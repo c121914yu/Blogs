@@ -43,24 +43,7 @@
 <script>
 var source,audioCtx,analyser,offect=0
 var firstLoad = true
-var urls = [
-	{
-		name : "司南 - 冬眠",
-		url : 'http://blogs.jinlongyuchitang.cn/music/%E5%8F%B8%E5%8D%97%20-%20%E5%86%AC%E7%9C%A0.ogg'
-	},
-	{
-		name : "G.E.M. 邓紫棋 - 很久以后",
-		url : 'http://blogs.jinlongyuchitang.cn/music/G.E.M.%20%E9%82%93%E7%B4%AB%E6%A3%8B%20-%20%E5%BE%88%E4%B9%85%E4%BB%A5%E5%90%8E.ogg'
-	},
-	{
-		name : "程响 - 世界这么大还是遇见你",
-		url : 'http://blogs.jinlongyuchitang.cn/music/%E7%A8%8B%E5%93%8D%20-%20%E4%B8%96%E7%95%8C%E8%BF%99%E4%B9%88%E5%A4%A7%E8%BF%98%E6%98%AF%E9%81%87%E8%A7%81%E4%BD%A0.ogg'
-	},
-	{
-		name : "阿冗 - 你的答案",
-		url : 'http://blogs.jinlongyuchitang.cn/music/%E9%98%BF%E5%86%97%20-%20%E4%BD%A0%E7%9A%84%E7%AD%94%E6%A1%88.ogg'
-	},
-]
+var urls
 var currentUrl = 0
 export default{
 	data(){
@@ -207,6 +190,7 @@ export default{
 		},
 	},
 	mounted() {
+		urls = global.blogsInfo.music
 		urls.sort(() => {
 			return 0.5-Math.random()
 		})
