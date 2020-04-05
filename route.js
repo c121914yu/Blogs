@@ -28,22 +28,28 @@ function route(app,express){
   });
   
   
-  app.use(express.static(__dirname+'/static/dist'))
-  //请求界面
+  // //请求界面
+	app.use(express.static(__dirname+'/static/dist'))
   app.get('/', (req,res) => {
     res.sendFile(__dirname + '/static/dist/index.html')
   })
+	
+	// 后台管理系统
+	app.use(express.static(__dirname+'/static/manager'))
+	app.get('/tools/manager', (req,res) => {
+	  res.sendFile(__dirname + '/static/manager/index.html')
+	})
 
   //网盘
-  app.use(express.static(__dirname+'/static/wangpan'))
-  app.get('/tools/wangpan',(req,res) => {
-    res.sendFile(__dirname + '/static/wangpan/wangpan.html')
-  })
+  // app.use(express.static(__dirname+'/static/wangpan'))
+  // app.get('/tools/wangpan',(req,res) => {
+  //   res.sendFile(__dirname + '/static/wangpan/wangpan.html')
+  // })
   
-  //任务列表
-  app.use(express.static(__dirname+'/static/taskList'))
-  app.get('/tools/task',(req,res) => {
-    res.sendFile(__dirname + '/static/taskList/task.html')
-  })
+  // //任务列表
+  // app.use(express.static(__dirname+'/static/taskList'))
+  // app.get('/tools/task',(req,res) => {
+  //   res.sendFile(__dirname + '/static/taskList/task.html')
+  // })
 }
 module.exports = route

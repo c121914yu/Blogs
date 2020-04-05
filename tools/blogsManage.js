@@ -17,7 +17,6 @@ module.exports = function(app,db){
 	app.get('/tools/getInfo',(req,res) => {
 	  //读取json文件数据
 	  let json = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/baseInfo.json",'utf8'))
-	  // 读取数据库中博客列表
 	  let sql = `select * from statistics`
 	  db.query(sql,(err,result) => {
 	    if(err) throw err
@@ -40,7 +39,7 @@ module.exports = function(app,db){
 }
 
 function timePlan(db){
-	schedule.scheduleJob('1 0 0 * * *',() => {//每分钟的0秒时执行一次
+	schedule.scheduleJob('1 0 0 * * *',() => {//每天0点1秒增加当天记录
 		const sql = 'insert into statistics set?'
 		let date = new Date()
 		date = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`

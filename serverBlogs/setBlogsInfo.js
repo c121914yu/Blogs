@@ -26,9 +26,19 @@ function setBlogsInfo(app,db){
             `
       db.query(sql,(err,result) => {
         if(err) throw err
-        res.send(result)
       })
     })
+		let date = new Date()
+		date = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`
+		let sql2 = `select * from statistics where date='${date}'`
+		db.query(sql2,(err,result) => {
+			if(err) throw err
+			sql2 = `update statistics
+              set visitor=${++result[0].visitor}
+              where date='${date}'`
+			db.query(sql2,(err,result))
+		})
+		res.send('success')
   })
   
   // 添加评论
