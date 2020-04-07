@@ -1,10 +1,21 @@
 const fs = require("fs")
 const uuid = require('uuid')
+
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination:(req, file, cb) => { //保存的路径
+    cb(null, __dirname+'/../blogs')
+  },
+  filename:(req, file, cb) => {
+    cb(null,file.originalname)
+  }
+})
+const upload = multer({ storage: storage })
+
 function setBlogsInfo(app,db){
-  app.post('/blogs/addBlogs',(req,res) => {
-    const param = req.body
-    let blogsInfo = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/baseInfo.json",'utf8'))
-    addBlogs(param,blogsInfo,db)//更新json数据
+  app.post('/blogs/addBlogs',upload.array('file',1),(req,res) => {
+    let param = JSON.parse(req.body.param)
+    addBlogs(param,db)//更新json数据
     .then((data,err) => {
       if(err) throw err
       res.send(data)
@@ -57,8 +68,9 @@ function setBlogsInfo(app,db){
 }
 module.exports = setBlogsInfo
 
-function addBlogs(param,blogsInfo,db){
+function addBlogs(param,db){
   return new Promise((resolve,reject) => {
+		let blogsInfo = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/baseInfo.json",'utf8'))
     /* 更新数据库*/
     param.date = new Date()
     param.id = uuid.v1()
