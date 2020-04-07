@@ -1,0 +1,80 @@
+/* markdown转化html后样式 */
+.md blockquote{
+  margin: 10px 0;
+  background-color: #F4F4F4;
+  padding: 5px 10px;
+  border-left: 8px solid var(--green1);
+  overflow: auto;
+  white-space: nowrap;
+}
+.md ul{
+  margin-left: 10px;
+}
+.md img{
+  display: block;
+  margin: 10px auto;
+}
+.md pre{
+  font-family: monospace;
+  padding: 5px 0;
+}
+.md a{
+  color: var(--green2);
+  text-decoration: none;
+}
+.md hr{
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: var(--border1);
+}
+.md h1,.md h2,.md h3,.md h4{
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+.md h1{
+  font-size: 2em;
+}
+.md h2{
+  font-size: 1.6rem;
+}
+.md h3{
+ font-size: 1.3rem; 
+ letter-spacing: 1px;
+}
+.md ol,.md li{
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+.md strong{
+  font-weight: bold;
+}
+.md table
+{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+}
+.md table td,.md table th
+{
+  border: 1px solid #cad9ea;
+  color: #666;
+  height: 30px;
+}
+.md table thead th
+{
+  background-color: rgba(90,216,166,0.4);
+  width: 100px;
+}
+.md table tr:nth-child(odd)
+{
+  background: #fff;
+}
+.md table tr:nth-child(even)
+{
+  background: #F5FAFA;
+}
