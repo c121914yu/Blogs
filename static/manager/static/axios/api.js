@@ -11,6 +11,7 @@ const managerLogin = (data) => postAction("/tools/managerLogin",data)
 const setMyInfo = (data) => postAction("/tools/setMyInfo",data)
 const saveMusic = (data) => postAction("/tools/saveMusic",data)
 const deleteMusic = (data) => postAction("/tools/deleteMusic",data)
+const addBlogs = (data) => postAction("/blogs/addBlogs",data)
 
 export {
 	getInfo,
@@ -19,5 +20,6 @@ export {
 	managerLogin,
 	setMyInfo,
 	saveMusic,
-	deleteMusic
+	deleteMusic,
+	addBlogs
 }

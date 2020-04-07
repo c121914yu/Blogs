@@ -6,9 +6,16 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4984044",
+      "name": "down",
+      "font_class": "down",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "13441164",
       "name": "列表-详情x 表格",
-      "font_class": "liebiao-xiangqingxbiaoge",
+      "font_class": "list",
       "unicode": "e606",
       "unicode_decimal": 58886
     },

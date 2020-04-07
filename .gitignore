@@ -1,6 +1,2 @@
 .DS_Store
 node_modules/
-/static/dist/
-/static/manager/
-blogs/
-jsonData/
