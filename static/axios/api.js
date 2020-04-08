@@ -6,6 +6,7 @@ import {
 const getInfo = (params) => getAction("tools/getInfo",params)
 const getBlogsList = (params) => getAction("tools/getBlogsList",params)
 const getUpToken = (params) => getAction("tools/getUpToken",params)
+const getBlogs = (params) => getAction("blogs/article",params)
 
 const managerLogin = (data) => postAction("/tools/managerLogin",data)
 const setMyInfo = (data) => postAction("/tools/setMyInfo",data)
@@ -17,6 +18,7 @@ export {
 	getInfo,
 	getBlogsList,
 	getUpToken,
+	getBlogs,
 	managerLogin,
 	setMyInfo,
 	saveMusic,

@@ -3,8 +3,8 @@ import {store} from '../../src/store.js'
 
 // 创建实例
 const service = axios.create({
-	// baseURL : "http://localhost:5000",
-	baseURL : "http://49.232.38.113:5000",
+	baseURL : "http://localhost:5000",
+	// baseURL : "http://49.232.38.113:5000",
 	timeout : 6000
 })
 

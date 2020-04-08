@@ -8,13 +8,12 @@
      <h3>{{blog.title}}</h3>
      <div class="line"></div>
   </a>
-	<a 
+	<div 
 		class="btns"
-		:href="'http://www.jinlongyuchitang.cn/article/'+blog.id"
-		target="_blank"
+		@click="editor"
 	>
 		编辑
-	</a>
+	</div>
   <div class="info">
     <div class="item worker">
       <i class="iconfont icon-riji"></i>
@@ -43,6 +42,7 @@
 </template>
 
 <script>
+import {getBlogs} from "../../static/axios/api.js"
 export default{
   data(){
     return{
@@ -52,6 +52,23 @@ export default{
   props:{
     blog : Object,
   },
+	methods:{
+		editor(){
+			const url = "https://editor.csdn.net/md/?not_checkout=1"
+			getBlogs({
+				id : this.blog.id
+			})
+			.then(res => {
+				const textarea = document.createElement('textarea') //创建textarea元素
+				textarea.value = res.data.html //将文本赋值给textarea
+				document.body.appendChild(textarea) //添加到body中
+				textarea.select() //选择文本
+				document.execCommand('copy') //复制
+				textarea.remove() //移除textarea
+				window.open(url)
+			})
+		}
+	},
   mounted() {
     const date = new Date(this.blog.date)
     this.date = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
