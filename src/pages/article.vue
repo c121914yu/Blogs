@@ -119,7 +119,7 @@ export default{
           clearInterval(timer)
         this.loading = true
         this.oldID = articleID
-        this.$axios.get('/blogs/article/'+articleID)
+        this.$axios.get('/blogs/article?id='+articleID)
         .then(res => {
           this.comment = res.data.comment
           this.getBLogsInfo(articleID)

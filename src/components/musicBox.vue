@@ -95,10 +95,9 @@ export default{
 					source.start()
 					if(firstLoad)
 						audioCtx.suspend()
-					else{
+					else
 						this.playing = true
-						firstLoad = false
-					}
+					firstLoad = false
 					draw()
 				})
 			})
@@ -148,14 +147,15 @@ export default{
 			}
 		},
 		switchMusic(e){
+			if(!this.playing) return
 			if(e === 1 &&  currentUrl === urls.length-1)
 				currentUrl = 0
 			else if(e === -1 && currentUrl === 0)
 				currentUrl = urls.length-1
 			else
 				currentUrl += e
-			this.loadMusic()
 			source.stop()
+			this.loadMusic()
 		},
 		dragTime(e){
 			const value = e.target.value
