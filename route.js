@@ -41,15 +41,15 @@ function route(app,express){
 	})
 
   //网盘
-  // app.use(express.static(__dirname+'/static/wangpan'))
-  // app.get('/tools/wangpan',(req,res) => {
-  //   res.sendFile(__dirname + '/static/wangpan/wangpan.html')
-  // })
+  app.use(express.static(__dirname+'/static/wangpan'))
+  app.get('/tools/wangpan',(req,res) => {
+    res.sendFile(__dirname + '/static/wangpan/wangpan.html')
+  })
   
-  // //任务列表
-  // app.use(express.static(__dirname+'/static/taskList'))
-  // app.get('/tools/task',(req,res) => {
-  //   res.sendFile(__dirname + '/static/taskList/task.html')
-  // })
+  //任务列表
+  app.use(express.static(__dirname+'/static/taskList'))
+  app.get('/tools/task',(req,res) => {
+    res.sendFile(__dirname + '/static/taskList/task.html')
+  })
 }
 module.exports = route

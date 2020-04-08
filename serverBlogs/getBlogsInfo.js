@@ -13,8 +13,8 @@ function getBlogsInfo(app,db){
     })
   })
 
-  app.get('/blogs/article/:id',(req,res) => {
-    const fileName = req.params.id + '.md'
+  app.get('/blogs/article',(req,res) => {
+    const fileName = req.param('id') + '.md'
     let html = fs.readFileSync(__dirname+'/../blogs/' + fileName,"utf8")
     let comment = JSON.parse(fs.readFileSync(__dirname+"/../jsonData/Lmessage.json","utf8"))
     comment = comment.filter(item => {
