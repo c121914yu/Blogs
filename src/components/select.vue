@@ -60,19 +60,13 @@ export default{
 				document.querySelector(".content").style.height = "0px"
 		},
 	},
-	beforeRouteEnter(to,from,next) {
-		next(vm => {
-			vm.height = 45 * vm.arrData.length
-			document.body.onclick = (e) => {
-				if(!document.querySelector('.select').contains(e.target))
-				  vm.setStatus(false)
-			}
-		})
+	mounted(){
+		this.height = 45 * this.arrData.length
+		document.querySelector('.newBlogs').onclick = (e) => {
+			if(!document.querySelector('.select').contains(e.target))
+			  this.setStatus(false)
+		}
 	},
-	beforeRouteUpdate(to,from,next) {
-		document.body.onclick = ""
-		next()
-	}
 }
 </script>
 
