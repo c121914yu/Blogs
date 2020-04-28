@@ -1,17 +1,17 @@
- /* 滚动条样式 */
- ::-webkit-scrollbar{
-   width:10px;
-   height: 7px;
- }
- ::-webkit-scrollbar-track{
-   background: rgb(239, 239, 239);
-   border-radius:2px;
- }
- ::-webkit-scrollbar-thumb{
-   background-color: #bfbfbf;
-   border-radius:10px;
- }
- :root{
+/* 滚动条样式 */
+::-webkit-scrollbar{
+	width:10px;
+	height: 7px;
+}
+::-webkit-scrollbar-track{
+	background: rgb(239, 239, 239);
+	border-radius:2px;
+}
+::-webkit-scrollbar-thumb{
+	background-color: #bfbfbf;
+	border-radius:10px;
+}
+:root{
   --font-dark1 : #262626;
   --font-dark2 : #333333;
   --font-dark-common : #2c3e50;
