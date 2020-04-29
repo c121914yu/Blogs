@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>单词表</title>
+	<base href="/">
+	<link rel="stylesheet" type="text/css" href="wordTable.css"/>
+	<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.css" rel="stylesheet">
+</head>
+<body>
+	
+	<h1 class="title">词汇表</h1>
+	
+	<div class="card">
+		<div class="container"></div>
+		
+		<div class="btns">
+			<button class="last-btn" onclick="changeWord(-1)">上一个</button>
+			<button class="remenber-btn">生词</button>
+			<button class="next-btn" onclick="changeWord(1)">下一个</button>
+		</div>
+	</div>
+	
+	<script src="wordTable.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

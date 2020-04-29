@@ -51,5 +51,11 @@ function route(app,express){
   app.get('/tools/task',(req,res) => {
     res.sendFile(__dirname + '/static/taskList/task.html')
   })
+	
+	// 词汇表
+	app.use(express.static(__dirname+'/static/wordTable'))
+	app.get('/tools/wordTable',(req,res) => {
+	  res.sendFile(__dirname + '/static/wordTable/wordTable.html')
+	})
 }
 module.exports = route

@@ -2,7 +2,7 @@
 	"email": "545436317@qq.com",
 	"github": "https://github.com/c121914yu",
 	"name": "yujinlong",
-	"article": 12,
+	"article": 13,
 	"categeroy": [
 		{
 			"text": "日记",
@@ -20,7 +20,7 @@
 		},
 		{
 			"text": "技术",
-			"amount": 12,
+			"amount": 13,
 			"icon": "icon-jishu",
 			"param": "technology",
 			"tags": [
@@ -30,7 +30,10 @@
 				"javascript",
 				"java",
 				"c++",
-				"ThreeJS"
+				"ThreeJS",
+				"node",
+				"git",
+				"服务器"
 			]
 		},
 		{
@@ -85,6 +88,12 @@
 			"url": "http://www.jinlongyuchitang.cn/tools/task",
 			"icon": "icon-task",
 			"color": "#5ad8a6"
+		},
+		{
+			"text": "词汇表",
+			"url": "http://www.jinlongyuchitang.cn/tools/wordTable",
+			"icon": "icon-task",
+			"color": "#f6bd16"
 		}
 	]
 }

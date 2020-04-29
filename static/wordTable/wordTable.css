@@ -1,0 +1,78 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	min-height: 100vh;
+	width: 100%;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	letter-spacing: 0.5px;
+}
+h1{
+	letter-spacing: 1px;
+}
+
+.card{
+	width: 80%;
+	max-width: 350px;
+	text-align: center;
+}
+.card .container{
+	padding: 5px 0;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.card .container i{
+	color: #5d7092;
+	font-size: 1.2em;
+	margin-left: 10px;
+}
+
+.card .container .open-translate{
+	color: #909399;
+	cursor: pointer;
+}
+.card .container .translate,
+.card .container .open-translate.show{
+	display: none;
+}
+.card .container .translate.show{
+	display: block;
+}
+
+.card .btns{
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.card .btns button{
+	width: 25%;
+	border: 0;
+	outline: none;
+	color: #FFFFFF;
+	border-radius: 5px;
+	padding: 5px 0;
+	cursor: pointer;
+	transition: 0.1s;
+}
+.card .btns button:active{
+	transform: scale(0.9);
+}
+.card .btns button.last-btn,
+.card .btns button.next-btn
+{
+	background-color: #5b8ff9;
+}
+.card .btns button.remenber-btn{
+	background-color: #e86452;
+}
+.card .btns button.remenber-btn.remenber{
+	background-color: #5ad8a6;
+}
