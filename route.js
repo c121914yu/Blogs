@@ -9,6 +9,12 @@ function route(app,express){
           return context.parsedUrl.path
         }
       },
+			{
+			  from: /^\/api\/.*$/, 
+			  to: function(context) {
+			    return context.parsedUrl.path
+			  }
+			},
       {
         from: /^\/tools\/.*$/, 
         to: function(context) {
@@ -56,6 +62,12 @@ function route(app,express){
 	app.use(express.static(__dirname+'/static/wordTable'))
 	app.get('/tools/wordTable',(req,res) => {
 	  res.sendFile(__dirname + '/static/wordTable/wordTable.html')
+	})
+	
+	// 记账本
+	app.use(express.static(__dirname+'/static/tallyBook'))
+	app.get('/tools/tallyBook',(req,res) => {
+	  res.sendFile(__dirname + '/static/tallyBook/tallyBook.html')
 	})
 }
 module.exports = route

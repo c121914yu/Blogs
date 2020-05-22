@@ -38,7 +38,7 @@
 		},
 		{
 			"text": "宝箱",
-			"amount": 2,
+			"amount": 3,
 			"icon": "icon-box",
 			"param": "box",
 			"tags": []

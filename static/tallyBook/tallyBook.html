@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>记账本</title>
+	<base href="/">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.8/lib/index.css"/>
+	<link rel="stylesheet" type="text/css" href="./tallyBook.css"/>
+	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.7.0/echarts-en.common.js"></script>
+</head>
+<body>
+	<div class="loading">
+		<div class="animate"></div>
+	</div>
+	<div id="app">
+		<div 
+			v-if="user === ''" 
+			class="login card in"
+			:class="navClass"
+		>
+			<div class="in">
+				<h3>账号登录</h3>
+				<form>
+					<input type="email" placeholder="邮箱地址" v-model="loginInfo.email">
+					<input type="password" placeholder="密码" v-model="loginInfo.password">
+					<button @click="login">登录</button>
+				</form>
+				<p>
+					<span @click="navClass='findPsw'">忘记密码</span>
+					|
+					<span @click="navClass='register'">注册账号</span>
+				</p>
+			</div>
+			<div class="register">
+				<h3>账号注册</h3>
+				<div class="back-login" @click="navClass='in'">返回登录</div>
+				<form>
+					<input type="text" placeholder="your name" v-model="loginInfo.name">
+					<input type="email" placeholder="email" v-model="loginInfo.email">
+					<input type="password" placeholder="password" v-model="loginInfo.password">
+					<input type="password" placeholder="sure password" v-model="sure_password">
+					<input type="number" maxlength="6" placeholder="random code" v-model="loginInfo.random_code">
+					<button @click="login" v-if="loginInfo.random_code.length === 6">注册</button>
+					<button 
+						v-else
+						:class="time > 0 ? 'waiting' : ''"
+						@click="get_randomCode"
+					>
+						{{randomText}}
+					</button>
+				</form>
+			</div>
+			<div class="find-psw">
+				<h3>找回密码</h3>
+				<div class="back-login" @click="navClass='in'">返回登录</div>
+				<form>
+					<input type="email" placeholder="email" v-model="loginInfo.email">
+					<input type="password" placeholder="password" v-model="loginInfo.password">
+					<input type="password" placeholder="sure password" v-model="sure_password">
+					<input type="number" maxlength="6" placeholder="random code" v-model="loginInfo.random_code">
+					<button @click="login" v-if="loginInfo.random_code.length === 6">找回密码</button>
+					<button
+						v-else
+						:class="time > 0 ? 'waiting' : ''"
+						@click="get_randomCode"
+					>
+						{{randomText}}
+					</button>
+				</form>
+			</div>
+		</div>
+		<div v-else class="main">
+			<div v-show="show_mask" class="mask"></div>
+			<div class="addRecord-btn" @click="addRecord">+</div>
+			<div
+				v-if="show_detail" 
+				class="show_detail card"
+			>
+				<h3 class="center">{{detail_record.title}}</h3>
+				<p><strong>收支内容</strong></p>
+				<input type="text" placeholder="收支内容" v-model="detail_record.content">
+				<p><strong>金额</strong>(-号表示支出)</p>
+				<input type="text" placeholder="金额(-号表示支出)" v-model="detail_record.money">
+				<div class="btns">
+					<p class="sure-add" @click="detail_record.oneFun">{{detail_record.oneText}}</p>
+					<p 
+						@click="detail_record.twoFun"
+						:style="detail_record.twoText === '删除' ? 'color:#e86452' : ''"
+					>
+						{{detail_record.twoText}}
+					</p>
+				</div>
+			</div>
+			
+			<header>
+				<span>{{user.name}}</span>
+				<span class="login-out">退出</span>
+			</header>
+			<div class="card statistics">
+				<ul class="left">
+					<li
+						:class="index === current_statistics ? 'active' : ''"
+						v-for="(item,index) in statistics_nav"
+						:key="index"
+						@click="current_statistics=index"
+					>
+						{{item.text}}
+					</li>
+				</ul>
+				<div class="right">
+					<div class="money">
+						<p>支出: <span class="expend">{{user[statistics_nav[current_statistics].param].expend}}</span>元</p>
+						<p>收入: <span class="income">{{user[statistics_nav[current_statistics].param].income}}</span>元</p>
+					</div>
+					<div v-show="current_statistics === 0" class="chart" id="day"></div>
+					<div v-if="current_statistics === 1" class="chart" id="week"></div>
+				</div>
+			</div>
+			
+			<div class="container">
+				<div 
+					class="records"
+					:class="item.money > 0 ? 'income' : item.money < 0 ? 'expend' : ''"
+					v-for="(item,index) in user.records"
+					:key="index"
+				>
+					<header 
+						:style="item.show ? 'background-color: #f0f0f0' : ''"
+						class="card" 
+						@click="item.show = !item.show"
+					>
+						<span>{{item.date}}</span>
+						<span>{{item.data.length}}笔收支</span>
+						<span class="money">
+							{{item.money > 0 ? `+${item.money}` : item.money}}元
+						</span>
+					</header>
+					<ul :style="item.show ? `height:${item.data.length*35}px` : 'height:0'">
+						<li
+							:class="data.money > 0 ? 'income' : 'expend'"
+							v-for="(data,index1) in item.data"
+							:key="index1"
+							@click="show_record_detail(data,index,index1)"
+						>
+							<span class="content">{{data.content}}</span>
+							<span class="money">{{data.money > 0 ? `+${data.money}` : data.money}}元</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		
+			<footer @click="getRecord">
+				{{allData ? '已加载全部' : '加载更多'}}
+			</footer>
+		</div>
+	</div>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.8/lib/vant.min.js"></script>
+	<script src="./tallyBook.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
