@@ -288,7 +288,6 @@ export default{
 	-webkit-appearance: none;
 	width: 100%;
 	border: none;
-	position: absolute;
 	left: 0;
 }
 .range:focus{
