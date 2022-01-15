@@ -12,7 +12,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "highlight.js": "^9.18.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
